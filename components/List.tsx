@@ -6,7 +6,7 @@ interface ListProps {
 }
 
 const List: React.FC<ListProps> = ({ data }) => {
-  const sortedData = data.sort((a: any, b: any) => b.results.feeTransferEth - a.results.feeTransferEth);
+  const sortedData = data.sort((a: any, b: any) => a.results.feeTransferEth - b.results.feeTransferEth);
 
   return (
     <div className="list">
