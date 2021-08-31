@@ -35,7 +35,9 @@ export function setup(sdk: Context) {
       icon: sdk.ipfs.getDataURILoader('QmZC3WbPX77hYvh6EXuMiBAHBHd3M81EA4BJiKRLyL6vMk', 'image/svg+xml'),
       category: 'l2',
       name: 'Loopring',
+      description: 'ZKSync is a ZK Rollup that allows token trades and transfers.',
       l2BeatSlug: 'loopring',
+      website: 'https://loopring.io',
     },
   });
 }

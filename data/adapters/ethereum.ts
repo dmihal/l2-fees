@@ -18,6 +18,8 @@ export function setup(sdk: Context) {
       icon: sdk.ipfs.getDataURILoader('QmedJLPy6R7x3dDEy2cfMd8gXbZm9e3vxvgBLXp3YZEHCy', 'image/svg+xml'),
       category: 'l1',
       name: 'Ethererum',
+      description: 'Ethereum is the base layer-1 chain.',
+      website: 'https://ethereum.org',
     },
   });
 }

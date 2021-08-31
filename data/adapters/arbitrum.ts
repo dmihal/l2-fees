@@ -27,7 +27,9 @@ export function setup(sdk: Context) {
       icon: sdk.ipfs.getDataURILoader('QmeRunQGxv3haLoMfgwD2VjKwScf7gDQiA1DCYd1HNBCG6', 'image/svg+xml'),
       category: 'l2',
       name: 'Arbitrum One',
+      description: 'Arbitrum One is an EVM-compatable Optimistic Rollup',
       l2BeatSlug: 'arbitrum',
+      website: 'https://offchainlabs.com',
     },
   });
 }
