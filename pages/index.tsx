@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NextPage, GetStaticProps } from 'next';
 import 'data/adapters';
 import sdk from 'data/sdk';
 import List from 'components/List';
 import SocialTags from 'components/SocialTags';
+import ToggleBar from 'components/ToggleBar';
 
 interface HomeProps {
   data: any[];
 }
 
 export const Home: NextPage<HomeProps> = ({ data }) => {
+  const [type, setType] = useState('feeTransferEth');
+
   return (
     <main>
       <SocialTags />
@@ -29,7 +32,17 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
         {' = ❤️'}
       </p>
 
-      <List data={data} />
+      <ToggleBar
+        options={[
+          { value: 'feeTransferEth', label: 'Cost to transfer ETH' },
+          { value: 'feeTransferERC20', label: 'Cost to transfer tokens' },
+          { value: 'feeSwap', label: 'Cost to swap tokens' },
+        ]}
+        selected={type}
+        onChange={setType}
+      />
+
+      <List data={data} query={type} />
 
       <style jsx>{`
         main {
@@ -70,7 +83,13 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const list = sdk.getList('fees');
-  const data = await list.executeQueriesWithMetadata(['feeTransferEth', 'feeTransferERC20'/*, 'feeSwap'*/]);
+  const data = await list.executeQueriesWithMetadata([
+      'feeTransferEth',
+      'feeTransferERC20',
+      'feeSwap',
+    ],
+    { allowMissingQuery: true },
+  );
 
   return { props: { data }, revalidate: 5 * 60 };
 };

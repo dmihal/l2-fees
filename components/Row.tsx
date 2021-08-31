@@ -7,20 +7,21 @@ import RowName from './RowName';
 
 interface RowProps {
   protocol: any;
+  query: string;
 }
 
 const toggle = (isOpen: boolean) => !isOpen;
 
 const cardHeight = 600;
 
-const Row: React.FC<RowProps> = ({ protocol }) => {
+const Row: React.FC<RowProps> = ({ protocol, query }) => {
   const [open, setOpen] = useState(false);
 
   const isApp = protocol.metadata.category !== 'l1';
 
-  const amount = protocol.results.feeTransferEth < 0.01
+  const amount = protocol.results[query] < 0.01
     ? '< $0.01'
-    : protocol.results.feeTransferEth?.toLocaleString('en-US', {
+    : protocol.results[query]?.toLocaleString('en-US', {
         style: 'currency',
         currency: 'USD',
       });

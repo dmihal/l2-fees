@@ -3,22 +3,31 @@ import Row from './Row';
 
 interface ListProps {
   data: any[];
+  query: string;
 }
 
-const List: React.FC<ListProps> = ({ data }) => {
-  const sortedData = data.sort((a: any, b: any) => a.results.feeTransferEth - b.results.feeTransferEth);
+const headers: { [key: string]: string } = {
+  feeTransferEth: 'Cost to transfer ETH',
+  feeTransferERC20: 'Cost to transfer tokens',
+  feeSwap: 'Cost to swap tokens',
+}
+
+const List: React.FC<ListProps> = ({ data, query }) => {
+  const sortedData = data
+    .filter((protocol: any) => !!protocol.results[query])
+    .sort((a: any, b: any) => a.results[query] - b.results[query]);
+
+  console.log(sortedData);
 
   return (
     <div className="list">
       <div className="header">
         <div className="name">Name</div>
-        <div className="amount">
-          Cost to transfer ETH
-        </div>
+        <div className="amount">{headers[query]}</div>
       </div>
 
       {sortedData.map((protocol: any) => (
-        <Row protocol={protocol} key={protocol.id} />
+        <Row protocol={protocol} key={protocol.id} query={query} />
       ))}
 
       <style jsx>{`
