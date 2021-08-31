@@ -27,6 +27,7 @@ export function setup(sdk: Context) {
       icon: sdk.ipfs.getDataURILoader('QmeRunQGxv3haLoMfgwD2VjKwScf7gDQiA1DCYd1HNBCG6', 'image/svg+xml'),
       category: 'l2',
       name: 'Arbitrum One',
+      l2BeatSlug: 'arbitrum',
     },
   });
 }

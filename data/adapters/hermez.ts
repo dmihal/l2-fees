@@ -18,6 +18,7 @@ export function setup(sdk: Context) {
       icon: sdk.ipfs.getDataURILoader('Qmbw7GjfMCHauojv5yKZnKTaWZi2p3D7fcetU8rqSoL54M', 'image/svg+xml'),
       category: 'l2',
       name: 'Hermez',
+      l2BeatSlug: 'hermez',
     },
   });
 }

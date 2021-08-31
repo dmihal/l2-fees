@@ -1,11 +1,26 @@
 import React from 'react';
-import Link from 'next/link';
 import Attribute from './Attribute';
 import Button from './Button';
+import l2BeatSVG from 'icons/l2beat.svg';
 
 interface DetailsCardProps {
   protocol: any;
 }
+
+const L2BeatIcon: React.FC = () => (
+  <div className="l2Beat">
+    <style jsx>{`
+      .l2Beat {
+        background: url('${l2BeatSVG}');
+        background-size: contain;
+        height: 18px;
+        width: 18px;
+        margin-right: 2px;
+        flex: 0 0 18px;
+      }
+    `}</style>
+  </div>
+);
 
 const DetailsCard: React.FC<DetailsCardProps> = ({ protocol }) => {
   return (
@@ -25,11 +40,16 @@ const DetailsCard: React.FC<DetailsCardProps> = ({ protocol }) => {
 
         <div className="spacer" />
 
-        <div>
-          <Link href={`/protocol/${protocol.id}`} passHref>
-            <Button>More Details</Button>
-          </Link>
-        </div>
+        {protocol.metadata.l2BeatSlug && (
+          <div>
+            <Button
+              href={`https://l2beat.com/projects/${protocol.metadata.l2BeatSlug}/`}
+              Icon={L2BeatIcon}
+            >
+              More Details at L2Beat.com
+            </Button>
+          </div>
+        )}
       </div>
 
       <style jsx>{`

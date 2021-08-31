@@ -35,6 +35,7 @@ export function setup(sdk: Context) {
       icon: sdk.ipfs.getDataURILoader('QmZC3WbPX77hYvh6EXuMiBAHBHd3M81EA4BJiKRLyL6vMk', 'image/svg+xml'),
       category: 'l2',
       name: 'Loopring',
+      l2BeatSlug: 'loopring',
     },
   });
 }

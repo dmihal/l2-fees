@@ -23,6 +23,7 @@ export function setup(sdk: Context) {
       icon: sdk.ipfs.getDataURILoader('QmXeCkZTkG8nuNAMbNykxfu1ybJHyDsu8EgVJ7RKuza5WA', 'image/svg+xml'),
       category: 'l2',
       name: 'ZKSync',
+      l2BeatSlug: 'zksync',
     },
   });
 }
