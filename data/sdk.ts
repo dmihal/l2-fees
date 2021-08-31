@@ -5,5 +5,6 @@ const sdk = new CryptoStatsSDK({
 });
 
 sdk.ethers.addProvider('arbitrum-one', 'https://arb1.arbitrum.io/rpc');
+sdk.ethers.addProvider('optimism', 'https://mainnet.optimism.io');
 
 export default sdk;
