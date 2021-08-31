@@ -16,7 +16,14 @@ const cardHeight = 600;
 const Row: React.FC<RowProps> = ({ protocol }) => {
   const [open, setOpen] = useState(false);
 
-  const isApp = protocol.category !== 'l1' && protocol.category !== 'l2';
+  const isApp = protocol.metadata.category !== 'l1';
+
+  const amount = protocol.results.feeTransferEth < 0.01
+    ? '< $0.01'
+    : protocol.results.feeTransferEth?.toLocaleString('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      });
 
   return (
     <Fragment>
@@ -42,10 +49,7 @@ const Row: React.FC<RowProps> = ({ protocol }) => {
           subtitle={protocol.metadata.subtitle}
         />
         <div className="amount">
-          {protocol.results.feeTransferEth?.toLocaleString('en-US', {
-            style: 'currency',
-            currency: 'USD',
-          })}
+          {amount}
         </div>
         <div className="arrow">{open ? <ChevronUp /> : <ChevronDown />}</div>
       </a>
