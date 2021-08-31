@@ -75,6 +75,8 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
 
         .heart {
           margin: 0 0 18px 0;
+          font-size: 18px;
+          font-style: italic;
         }
       `}</style>
     </main>

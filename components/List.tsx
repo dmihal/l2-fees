@@ -17,8 +17,6 @@ const List: React.FC<ListProps> = ({ data, query }) => {
     .filter((protocol: any) => !!protocol.results[query])
     .sort((a: any, b: any) => a.results[query] - b.results[query]);
 
-  console.log(sortedData);
-
   return (
     <div className="list">
       <div className="header">
