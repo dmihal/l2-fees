@@ -34,9 +34,9 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
 
       <ToggleBar
         options={[
-          { value: 'feeTransferEth', label: 'Cost to transfer ETH' },
-          { value: 'feeTransferERC20', label: 'Cost to transfer tokens' },
-          { value: 'feeSwap', label: 'Cost to swap tokens' },
+          { value: 'feeTransferEth', label: 'Transfer ETH' },
+          { value: 'feeTransferERC20', label: 'Transfer tokens' },
+          { value: 'feeSwap', label: 'Swap tokens' },
         ]}
         selected={type}
         onChange={setType}
