@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import ReactGA from 'react-ga';
 import Header from 'components/Header';
@@ -19,7 +18,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <div className="container">
       <Head>
-        <title key="title">CryptoFees.info</title>
+        <title key="title">L2Fees.info</title>
         <link rel="icon" href="/favicon.png" />
         <link href="https://use.typekit.net/jrq0bbf.css" rel="stylesheet" />
         <link
@@ -38,7 +37,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
       <Component {...pageProps} />
 
       <footer>
-        <div>Data updates at midnight, UTC</div>
+        <div>Data updates continuously</div>
         <div>
           Created by{' '}
           <a href="https://twitter.com/dmihal" target="twitter">
@@ -47,27 +46,13 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
         </div>
 
         <div>
-          <Link href="/faqs">
-            <a>FAQs</a>
-          </Link>
+          <b>l2fees.info</b>
           {' | '}
-          <Link href="/submit-project">
-            <a>Request Project</a>
-          </Link>
+          <a href="https://cryptofees.info">cryptofees.info</a>
           {' | '}
-          <Link href="/api-docs">
-            <a>API Documentation</a>
-          </Link>
-        </div>
-
-        <div>
-          <b>cryptofees.info</b>
-          {' | '}
-          <a href="https://ethereumnodes.com">ethereumnodes.com</a>
+          <a href="https://ethburned.info">ethburned.info</a>
           {' | '}
           <a href="https://money-movers.info">money-movers.info</a>
-          {' | '}
-          <a href="https://stakers.info">stakers.info</a>
           {' | '}
           <a href="https://open-orgs.info">open-orgs.info</a>
         </div>

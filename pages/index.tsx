@@ -14,12 +14,19 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
     <main>
       <SocialTags />
 
-      <h1 className="title">Crypto Fees</h1>
+      <h1 className="title">L2 Fees</h1>
 
       <p className="description">
-        Ethereum mainnet is expensive.
+        Ethereum Layer-1 is expensive.
         <br />
-        Layer 2s fix this.
+        How much does it cost to use Layer-2?
+      </p>
+
+      <p className="heart">
+        <a href="https://cryptofees.info">CryptoFees.info</a>
+        {' + '}
+        <a href="https://l2beat.com">L2Beat.com</a>
+        {' = ❤️'}
       </p>
 
       <List data={data} />
@@ -51,6 +58,10 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
           line-height: 1.5;
           font-size: 1.5rem;
           margin: 4px 0 20px;
+        }
+
+        .heart {
+          margin: 0 0 18px 0;
         }
       `}</style>
     </main>
