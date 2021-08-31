@@ -10,8 +10,6 @@ const List: React.FC<ListProps> = ({ data }) => {
 
   return (
     <div className="list">
-      <pre>{JSON.stringify(data, null, '  ')}</pre>
-
       <div className="header">
         <div className="name">Name</div>
         <div className="amount">
