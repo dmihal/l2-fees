@@ -18,7 +18,7 @@ export function setup(sdk: Context) {
       icon: sdk.ipfs.getDataURILoader('Qmbw7GjfMCHauojv5yKZnKTaWZi2p3D7fcetU8rqSoL54M', 'image/svg+xml'),
       category: 'l2',
       name: 'Hermez',
-      description: 'ZKSync is a ZK Rollup that allows token transfers.',
+      description: 'Hermez is an open-source ZK-Rollup that aims to be optimized for secure, low-cost and usable token transfers on the wings of Ethereum.',
       l2BeatSlug: 'hermez',
       website: 'https://hermez.io',
     },

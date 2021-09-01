@@ -79,7 +79,7 @@ export function setup(sdk: Context) {
       icon: sdk.ipfs.getDataURILoader('QmVnszFswRiqo35CAe46mAvSnp9iGnzWbzZucNKqWZHSKU', 'image/svg+xml'),
       category: 'l2',
       name: 'Optimism',
-      description: 'Optimism is an EVM-compatable Optimistic Rollup',
+      description: 'Optimism is an EVM-compatible Optimistic Rollup chain. It aims to be fast, simple, and secure.',
       l2BeatSlug: 'optimism',
       website: 'https://optimism.io',
     },
