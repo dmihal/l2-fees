@@ -82,6 +82,9 @@ export function setup(sdk: Context) {
       description: 'Optimism is an EVM-compatible Optimistic Rollup chain. It aims to be fast, simple, and secure.',
       l2BeatSlug: 'optimism',
       website: 'https://optimism.io',
+      flags: {
+        throtle: 'Arbitrum One is throttled while in beta. Fees will decrease as this throttle is lifted.',
+      },
     },
   });
 }

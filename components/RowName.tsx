@@ -15,7 +15,6 @@ const RowName: React.FC<RowNameProps> = ({ name, shortName, subtitle }) => {
 
       <style jsx>{`
         .name {
-          flex: 1;
           padding-left: 32px;
         }
         .short-name {

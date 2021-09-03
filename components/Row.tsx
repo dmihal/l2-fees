@@ -4,6 +4,7 @@ import ReactGA from 'react-ga';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import DetailsCard from './DetailsCard';
 import RowName from './RowName';
+import Flags from './Flags';
 
 interface RowProps {
   protocol: any;
@@ -44,11 +45,14 @@ const Row: React.FC<RowProps> = ({ protocol, query }) => {
           backgroundImage: protocol.metadata.icon ? `url('${protocol.metadata.icon}')` : undefined,
         }}
       >
-        <RowName
-          name={protocol.metadata.name}
-          shortName={protocol.metadata.shortName}
-          subtitle={protocol.metadata.subtitle}
-        />
+        <div className="row-name">
+          <RowName
+            name={protocol.metadata.name}
+            shortName={protocol.metadata.shortName}
+            subtitle={protocol.metadata.subtitle}
+          />
+          {protocol.metadata.flags && <Flags flags={protocol.metadata.flags} />}
+        </div>
         <div className="amount">
           {amount}
         </div>
@@ -86,11 +90,14 @@ const Row: React.FC<RowProps> = ({ protocol, query }) => {
           background-color: #f8c3f3;
         }
 
-        .amount {
-          padding-left: 32px;
+        .row-name {
+          flex: 1;
+          display: flex;
+          align-items: center;
         }
 
         .amount {
+          padding-left: 32px;
           min-width: 200px;
           text-align: right;
           font-family: 'Noto Sans TC', sans-serif;

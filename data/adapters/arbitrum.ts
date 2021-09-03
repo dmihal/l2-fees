@@ -30,6 +30,9 @@ export function setup(sdk: Context) {
       description: 'Arbitrum is an Optimistic Rollup that aims to feel exactly like interacting with Ethereum, but with transactions costing a fraction of what they do on L1.',
       l2BeatSlug: 'arbitrum',
       website: 'https://offchainlabs.com',
+      flags: {
+        throtle: 'Arbitrum One is throttled while in beta. Fees will decrease as this throttle is lifted.',
+      },
     },
   });
 }
