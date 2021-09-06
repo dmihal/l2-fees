@@ -3,7 +3,7 @@ import { Info } from 'react-feather';
 import incognito from './icons/incognito.svg';
 import speedometer from './icons/speedometer.svg';
 
-const makeIcon = (image: string) => (): React.FC => (
+const makeIcon = (image: string): React.FC => () => (
   <div className="icon">
     <style jsx>{`
       .icon {
@@ -18,7 +18,7 @@ const makeIcon = (image: string) => (): React.FC => (
   </div>
 );
 
-const icons: { [id: string]: React.ComponentType } = {
+const icons: { [id: string]: React.ComponentType<any> } = {
   throtle: makeIcon(speedometer),
   info: Info,
   private: makeIcon(incognito),
