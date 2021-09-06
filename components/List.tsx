@@ -7,9 +7,9 @@ interface ListProps {
 }
 
 const headers: { [key: string]: string } = {
-  feeTransferEth: 'Cost to transfer ETH',
-  feeTransferERC20: 'Cost to transfer tokens',
-  feeSwap: 'Cost to swap tokens',
+  feeTransferEth: 'Curent cost to transfer ETH',
+  feeTransferERC20: 'Curent cost to transfer tokens',
+  feeSwap: 'Curent cost to swap tokens',
 };
 
 const List: React.FC<ListProps> = ({ data, query }) => {
