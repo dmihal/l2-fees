@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import DetailsCard from './DetailsCard';
 import RowName from './RowName';

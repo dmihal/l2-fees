@@ -6385,10 +6385,10 @@ react-feather@^2.0.9:
   dependencies:
     prop-types "^15.7.2"
 
-react-ga@^3.1.2:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/react-ga/-/react-ga-3.3.0.tgz#c91f407198adcb3b49e2bc5c12b3fe460039b3ca"
-  integrity sha512-o8RScHj6Lb8cwy3GMrVH6NJvL+y0zpJvKtc0+wmH7Bt23rszJmnqEQxRbyrqUzk9DTJIHoP42bfO5rswC9SWBQ==
+react-ga4@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/react-ga4/-/react-ga4-1.0.6.tgz#35d3da353b8107da005de1cd2f616a6549762c05"
+  integrity sha512-sOMMBjIgf5/xzsBEZHUu1/x2155oPKhOKwibpLbkdT+4yLNOfcpqVF5CE4M5neB+7y56nqKHXt7Jv0HFYv1QTg==
 
 react-input-autosize@^3.0.0:
   version "3.0.0"

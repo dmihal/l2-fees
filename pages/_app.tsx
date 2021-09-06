@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 import Header from 'components/Header';
 
-ReactGA.initialize('UA-150445352-3');
+ReactGA.initialize('G-TG6XPV9ZGL');
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   const router = useRouter();

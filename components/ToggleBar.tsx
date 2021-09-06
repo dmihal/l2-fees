@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactGA from 'react-ga4';
 
 interface ToggleBarProps {
   options: { value: string; label: string }[];
@@ -7,13 +8,22 @@ interface ToggleBarProps {
 }
 
 const ToggleBar: React.FC<ToggleBarProps> = ({ options, selected, onChange }) => {
+  const change = (id: string, label: string) => {
+    ReactGA.event({
+      category: 'Navigation',
+      action: 'Change Tab',
+      label: label,
+    });
+    onChange(id);
+  }
+
   return (
     <ul className="bar">
       {options.map(option => (
         <li
           key={option.value}
           className={option.value === selected ? 'selected' : ''}
-          onClick={() => onChange(option.value)}
+          onClick={() => change(option.value, option.label)}
         >
           {option.label}
         </li>
