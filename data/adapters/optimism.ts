@@ -76,7 +76,7 @@ export function setup(sdk: Context) {
       feeSwap: getSwapCost,
     },
     metadata: {
-      icon: sdk.ipfs.getDataURILoader('QmVnszFswRiqo35CAe46mAvSnp9iGnzWbzZucNKqWZHSKU', 'image/svg+xml'),
+      icon: sdk.ipfs.getDataURILoader('QmS1mBxRRDjuVPAPkjrmrnVgzYwyfchjvRZTH11vgjqabG', 'image/svg+xml'),
       category: 'l2',
       name: 'Optimism',
       description: 'Optimism is an EVM-compatible Optimistic Rollup chain. It aims to be fast, simple, and secure.',

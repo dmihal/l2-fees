@@ -1,36 +1,28 @@
 import React from 'react';
 import Head from 'next/head';
 
-interface SocialTagsProps {
-  title?: string;
-  image?: string;
-  query?: string;
-}
 
-const SocialTags: React.FC<SocialTagsProps> = ({ title, image, query }) => {
-  const _title = title ? `${title} - CryptoFees.info` : 'CryptoFees.info';
+const SocialTags: React.FC = () => {
   return (
     <Head>
-      <meta property="og:title" content={_title} />
+      <meta property="og:title" content="L2Fees.info" />
       <meta
         property="og:image"
-        content={`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/social/${image || 'top'}.png`}
+        content={`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/social/top.png`}
       />
       <meta
         property="og:description"
-        content="There's tons of crypto projects. Which ones are people actually paying to use?"
+        content="Ethereum Layer-1 is expensive. How much does it cost to use Layer-2?"
       />
 
-      <meta name="twitter:title" content={_title} />
+      <meta name="twitter:title" content="L2Fees.info" />
       <meta
         name="twitter:description"
-        content="There's tons of crypto projects. Which ones are people actually paying to use?"
+        content="Ethereum Layer-1 is expensive. How much does it cost to use Layer-2?"
       />
       <meta
         name="twitter:image"
-        content={`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/social/${
-          image || 'top'
-        }.png?${new Date().getDate()}${query ? `&${query}` : ''}`}
+        content={`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/social/top.png?${new Date().getDate()}`}
       />
       <meta name="twitter:card" content="summary_large_image" />
     </Head>
