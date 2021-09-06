@@ -1,24 +1,27 @@
 import React from 'react';
 import { Info } from 'react-feather';
+import incognito from './icons/incognito.svg';
 import speedometer from './icons/speedometer.svg';
 
-const SpeedometerIcon: React.FC = () => (
-  <div className="speedometer">
+const makeIcon = (image: string) => (): React.FC => (
+  <div className="icon">
     <style jsx>{`
-      .speedometer {
-        background: url('${speedometer}');
+      .icon {
+        background: url('${image}');
         height: 18px;
         width: 18px;
         margin-right: 2px;
         flex: 0 0 18px;
+        background-size: contain;
       }
     `}</style>
   </div>
 );
 
 const icons: { [id: string]: React.ComponentType } = {
-  throtle: SpeedometerIcon,
+  throtle: makeIcon(speedometer),
   info: Info,
+  private: makeIcon(incognito),
 }
 
 interface FlagsProps {
