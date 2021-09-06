@@ -1,7 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
 
-
 const SocialTags: React.FC = () => {
   return (
     <Head>
@@ -22,7 +21,9 @@ const SocialTags: React.FC = () => {
       />
       <meta
         name="twitter:image"
-        content={`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/social/top.png?${new Date().getDate()}`}
+        content={`https://${
+          process.env.NEXT_PUBLIC_VERCEL_URL
+        }/api/social/top.png?${new Date().getDate()}`}
       />
       <meta name="twitter:card" content="summary_large_image" />
     </Head>

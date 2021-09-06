@@ -86,12 +86,9 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const list = sdk.getList('fees');
-  const data = await list.executeQueriesWithMetadata([
-      'feeTransferEth',
-      'feeTransferERC20',
-      'feeSwap',
-    ],
-    { allowMissingQuery: true },
+  const data = await list.executeQueriesWithMetadata(
+    ['feeTransferEth', 'feeTransferERC20', 'feeSwap'],
+    { allowMissingQuery: true }
   );
 
   return { props: { data }, revalidate: 5 * 60 };

@@ -26,7 +26,9 @@ const DetailsCard: React.FC<DetailsCardProps> = ({ protocol }) => {
   return (
     <div className="details-card">
       <div className="metadata">
-        {protocol.metadata.description && <div className="description">{protocol.metadata.description}</div>}
+        {protocol.metadata.description && (
+          <div className="description">{protocol.metadata.description}</div>
+        )}
 
         <div className="row">
           {protocol.metadata.website && (

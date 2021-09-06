@@ -22,7 +22,7 @@ const icons: { [id: string]: React.ComponentType<any> } = {
   throtle: makeIcon(speedometer),
   info: Info,
   private: makeIcon(incognito),
-}
+};
 
 interface FlagsProps {
   flags: any;
@@ -66,7 +66,7 @@ const Flags: React.FC<FlagsProps> = ({ flags }) => {
         }
       `}</style>
     </div>
-  )
-}
+  );
+};
 
 export default Flags;

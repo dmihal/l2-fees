@@ -20,12 +20,13 @@ const Row: React.FC<RowProps> = ({ protocol, query }) => {
 
   const isApp = protocol.metadata.category !== 'l1';
 
-  const amount = protocol.results[query] < 0.01
-    ? '< $0.01'
-    : protocol.results[query]?.toLocaleString('en-US', {
-        style: 'currency',
-        currency: 'USD',
-      });
+  const amount =
+    protocol.results[query] < 0.01
+      ? '< $0.01'
+      : protocol.results[query]?.toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
 
   const flags = {
     ...protocol.metadata.flags,
@@ -58,9 +59,7 @@ const Row: React.FC<RowProps> = ({ protocol, query }) => {
           />
           <Flags flags={flags} />
         </div>
-        <div className="amount">
-          {amount}
-        </div>
+        <div className="amount">{amount}</div>
         <div className="arrow">{open ? <ChevronUp /> : <ChevronDown />}</div>
       </a>
 

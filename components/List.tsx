@@ -10,7 +10,7 @@ const headers: { [key: string]: string } = {
   feeTransferEth: 'Cost to transfer ETH',
   feeTransferERC20: 'Cost to transfer tokens',
   feeSwap: 'Cost to swap tokens',
-}
+};
 
 const List: React.FC<ListProps> = ({ data, query }) => {
   const sortedData = data

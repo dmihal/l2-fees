@@ -15,11 +15,11 @@ const ToggleBar: React.FC<ToggleBarProps> = ({ options, selected, onChange }) =>
       label: label,
     });
     onChange(id);
-  }
+  };
 
   return (
     <ul className="bar">
-      {options.map(option => (
+      {options.map((option) => (
         <li
           key={option.value}
           className={option.value === selected ? 'selected' : ''}
@@ -62,7 +62,7 @@ const ToggleBar: React.FC<ToggleBarProps> = ({ options, selected, onChange }) =>
         }
       `}</style>
     </ul>
-  )
-}
+  );
+};
 
 export default ToggleBar;

@@ -48,25 +48,27 @@ export function setup(sdk: Context) {
     const estimate = await sdk.ethers.getProvider('optimism').estimateGas({
       from: '0x11e4857bb9993a50c685a79afad4e6f65d518dda', // Random account with USDT
       to: '0x94b008aa00579c1307b0ef2c499ad98a8ce58e58', // USDT Contract
-      data: '0xa9059cbb00000000000000000000000023e7039c34c7aa47a0d4e975fbc789e0f763fa640000000000000000000000000000000000000000000000000000000000000001'
+      data:
+        '0xa9059cbb00000000000000000000000023e7039c34c7aa47a0d4e975fbc789e0f763fa640000000000000000000000000000000000000000000000000000000000000001',
     });
-    const ethFee = estimate.toNumber() * OPTIMISM_GAS_PRICE / GWEI_IN_ETH;
+    const ethFee = (estimate.toNumber() * OPTIMISM_GAS_PRICE) / GWEI_IN_ETH;
     const ethPrice = await sdk.coinGecko.getCurrentPrice('ethereum');
 
     return ethFee * ethPrice;
-  }
+  };
 
   const getSwapCost = async () => {
     const estimate = await sdk.ethers.getProvider('optimism').estimateGas({
       from: '0x11e4857bb9993a50c685a79afad4e6f65d518dda', // Random account with USDT
       to: '0xe592427a0aece92de3edee1f18e0157c05861564', // Uniswap Router
-      data: '0x414bf38900000000000000000000000094b008aa00579c1307b0ef2c499ad98a8ce58e58000000000000000000000000da10009cbd5d07dd0cecc66161fc93d7c9000da100000000000000000000000000000000000000000000000000000000000001f4000000000000000000000000c9499bd14493f6d9006d6a13aca3098c786fe6b100000000000000000000000000000000000000000000000000000000912e6519000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+      data:
+        '0x414bf38900000000000000000000000094b008aa00579c1307b0ef2c499ad98a8ce58e58000000000000000000000000da10009cbd5d07dd0cecc66161fc93d7c9000da100000000000000000000000000000000000000000000000000000000000001f4000000000000000000000000c9499bd14493f6d9006d6a13aca3098c786fe6b100000000000000000000000000000000000000000000000000000000912e6519000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
     });
-    const ethFee = estimate.toNumber() * OPTIMISM_GAS_PRICE / GWEI_IN_ETH;
+    const ethFee = (estimate.toNumber() * OPTIMISM_GAS_PRICE) / GWEI_IN_ETH;
     const ethPrice = await sdk.coinGecko.getCurrentPrice('ethereum');
 
     return ethFee * ethPrice;
-  }
+  };
 
   sdk.register({
     id: 'optimism',
@@ -76,14 +78,19 @@ export function setup(sdk: Context) {
       feeSwap: getSwapCost,
     },
     metadata: {
-      icon: sdk.ipfs.getDataURILoader('QmS1mBxRRDjuVPAPkjrmrnVgzYwyfchjvRZTH11vgjqabG', 'image/svg+xml'),
+      icon: sdk.ipfs.getDataURILoader(
+        'QmS1mBxRRDjuVPAPkjrmrnVgzYwyfchjvRZTH11vgjqabG',
+        'image/svg+xml'
+      ),
       category: 'l2',
       name: 'Optimism',
-      description: 'Optimism is an EVM-compatible Optimistic Rollup chain. It aims to be fast, simple, and secure.',
+      description:
+        'Optimism is an EVM-compatible Optimistic Rollup chain. It aims to be fast, simple, and secure.',
       l2BeatSlug: 'optimism',
       website: 'https://optimism.io',
       flags: {
-        throtle: 'Arbitrum One is throttled while in beta. Fees will decrease as this throttle is lifted.',
+        throtle:
+          'Optimism is throttled while in beta. Fees will decrease as this throttle is lifted.',
       },
     },
   });
