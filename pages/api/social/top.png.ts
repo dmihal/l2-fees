@@ -4,7 +4,6 @@ import ReactDOMServer from 'react-dom/server';
 import React from 'react';
 import path from 'path';
 import SocialCard from 'components/SocialCard';
-import { formatDate } from 'data/lib/time';
 import 'data/adapters';
 import sdk from 'data/sdk';
 
@@ -14,17 +13,16 @@ path.resolve(process.cwd(), 'fonts', 'SofiaProRegular.ttf');
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const list = sdk.getList('fees');
-  const data = await list.executeQueriesWithMetadata(
-    ['feeTransferEth'],
-    { allowMissingQuery: true },
-  );
+  const data = await list.executeQueriesWithMetadata(['feeTransferEth'], {
+    allowMissingQuery: true,
+  });
 
   const filteredData = data.filter((val: any) => !!val);
 
   const svg = ReactDOMServer.renderToString(
     React.createElement(SocialCard, {
       data: filteredData,
-      date: formatDate(new Date()),
+      date: sdk.date.formatDate(new Date()),
     })
   );
 
