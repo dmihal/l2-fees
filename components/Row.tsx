@@ -27,6 +27,11 @@ const Row: React.FC<RowProps> = ({ protocol, query }) => {
         currency: 'USD',
       });
 
+  const flags = {
+    ...protocol.metadata.flags,
+    ...(protocol.metadata.flagsByQuery || {})[query],
+  };
+
   return (
     <Fragment>
       <a
@@ -51,7 +56,7 @@ const Row: React.FC<RowProps> = ({ protocol, query }) => {
             shortName={protocol.metadata.shortName}
             subtitle={protocol.metadata.subtitle}
           />
-          {protocol.metadata.flags && <Flags flags={protocol.metadata.flags} />}
+          <Flags flags={flags} />
         </div>
         <div className="amount">
           {amount}

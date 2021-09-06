@@ -1,4 +1,5 @@
 import React from 'react';
+import { Info } from 'react-feather';
 import speedometer from './icons/speedometer.svg';
 
 const SpeedometerIcon: React.FC = () => (
@@ -17,6 +18,7 @@ const SpeedometerIcon: React.FC = () => (
 
 const icons: { [id: string]: React.ComponentType } = {
   throtle: SpeedometerIcon,
+  info: Info,
 }
 
 interface FlagsProps {
@@ -30,7 +32,7 @@ const Flags: React.FC<FlagsProps> = ({ flags }) => {
         const Icon = icons[id];
         return (
           <div className="flag" key={id}>
-            <Icon />
+            <Icon size={18} />
             <div className="tooltip">{desc}</div>
           </div>
         );
@@ -54,6 +56,7 @@ const Flags: React.FC<FlagsProps> = ({ flags }) => {
           border-radius: 6px;
           white-space: normal;
           transform: translateX(-50%);
+          z-index: 2;
         }
         .flag:hover .tooltip {
           display: block;

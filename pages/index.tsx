@@ -52,6 +52,7 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
           flex-direction: column;
           justify-content: center;
           align-items: center;
+          width: 100%;
         }
 
         .title {
