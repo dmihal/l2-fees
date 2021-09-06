@@ -5,18 +5,33 @@ const Header = () => {
     <header>
       <ul className="header-links">
         <li className="header-link">
-          <div>cryptofees.info</div>
+          <div>l2fees.info</div>
         </li>
         <li className="header-link">
-          <a href="https://money-movers.info/">money-movers.info</a>
+          <a href="https://cryptofees.info/">cryptofees.info</a>
         </li>
-        <li className="header-link">
+        <li className="header-link hideable">
           <a href="https://open-orgs.info/">open-orgs.info</a>
+        </li>
+        <li className="header-link hideable">
+          <a href="https://ethburned.info/">ethburned.info</a>
+        </li>
+        <li className="header-link hideable">
+          <a href="https://money-movers.info/">money-movers.info</a>
         </li>
         <li className="header-link">
           <a>More</a>
 
           <ul className="dropdown">
+            <li className="header-link showable">
+              <a href="https://open-orgs.info/">open-orgs.info</a>
+            </li>
+            <li className="header-link showable">
+              <a href="https://ethburned.info/">ethburned.info</a>
+            </li>
+            <li className="header-link showable">
+              <a href="https://money-movers.info/">money-movers.info</a>
+            </li>
             <li className="header-link">
               <a href="https://stakers.info/">stakers.info</a>
             </li>
@@ -74,11 +89,23 @@ const Header = () => {
           display: block;
         }
 
+        .showable {
+          display: none;
+        }
+
         @media (max-width: 700px) {
           .header-link > a,
           .header-link > div {
             margin: 0 1px;
             padding: 4px;
+          }
+
+          .hideable {
+            display: none;
+          }
+
+          .showable {
+            display: block;
           }
         }
       `}</style>
@@ -86,4 +113,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Header
