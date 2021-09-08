@@ -30,6 +30,12 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
           href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&amp;display=swap"
           rel="stylesheet"
         />
+        <script
+          async
+          defer
+          data-domain="l2fees.info"
+          src="https://analytics.cryptostats.community/js/plausible.js"
+        />
       </Head>
 
       <Header />
