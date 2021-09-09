@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
+import PlausibleProvider from 'next-plausible';
 import { useRouter } from 'next/router';
 import ReactGA from 'react-ga4';
 import Header from 'components/Header';
+import Footer from 'components/Footer';
 
 ReactGA.initialize('G-TG6XPV9ZGL');
 
@@ -21,48 +23,20 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
         <title key="title">L2Fees.info</title>
         <link rel="icon" href="/favicon.png" />
         <link href="https://use.typekit.net/jrq0bbf.css" rel="stylesheet" />
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/react-datepicker/3.6.0/react-datepicker.min.css"
-        />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&amp;display=swap"
           rel="stylesheet"
         />
-        <script
-          async
-          defer
-          data-domain="l2fees.info"
-          src="https://analytics.cryptostats.community/js/plausible.js"
-        />
       </Head>
 
-      <Header />
+      <PlausibleProvider domain="l2fees.info">
+        <Header />
 
-      <Component {...pageProps} />
+        <Component {...pageProps} />
 
-      <footer>
-        <div>Data updates continuously</div>
-        <div>
-          Created by{' '}
-          <a href="https://twitter.com/dmihal" target="twitter">
-            David Mihal
-          </a>
-        </div>
-
-        <div>
-          <b>l2fees.info</b>
-          {' | '}
-          <a href="https://cryptofees.info">cryptofees.info</a>
-          {' | '}
-          <a href="https://ethburned.info">ethburned.info</a>
-          {' | '}
-          <a href="https://money-movers.info">money-movers.info</a>
-          {' | '}
-          <a href="https://open-orgs.info">open-orgs.info</a>
-        </div>
-      </footer>
+        <Footer />
+      </PlausibleProvider>
 
       <style jsx>{`
         .container {
