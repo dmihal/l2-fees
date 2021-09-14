@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactGA from 'react-ga4';
+import Link from 'next/link';
+
+type Item = { value: string; label: string; href?: string };
+type Option = Item | 'separator';
 
 interface ToggleBarProps {
-  options: { value: string; label: string }[];
+  options: Option[];
   selected: string;
   onChange: (newSelection: string) => void;
 }
@@ -17,22 +21,47 @@ const ToggleBar: React.FC<ToggleBarProps> = ({ options, selected, onChange }) =>
     onChange(id);
   };
 
+  const sections: Item[][] = [[]];
+
+  for (const option of options) {
+    if (option === 'separator') {
+      sections.push([]);
+    } else {
+      sections[sections.length - 1].push(option);
+    }
+  }
+
   return (
-    <ul className="bar">
-      {options.map((option) => (
-        <li
-          key={option.value}
-          className={option.value === selected ? 'selected' : ''}
-          onClick={() => change(option.value, option.label)}
-        >
-          {option.label}
-        </li>
+    <div className="bar">
+      {sections.map((items: Item[], i: number) => (
+        <ul key={i.toString()}>
+          {items.map((option) => (
+            <li
+              key={option.value}
+              className={option.value === selected ? 'selected' : ''}
+              onClick={() => change(option.value, option.label)}
+            >
+              {option.href ? (
+                <Link href={option.href}>
+                  <a className="link">{option.label}</a>
+                </Link>
+              ) : (
+                option.label
+              )}
+            </li>
+          ))}
+        </ul>
       ))}
 
       <style jsx>{`
         .bar {
           display: flex;
+        }
+
+        ul {
+          display: flex;
           padding: 0;
+          margin: 0 2px;
         }
 
         li {
@@ -43,6 +72,10 @@ const ToggleBar: React.FC<ToggleBarProps> = ({ options, selected, onChange }) =>
           background: transparent;
           font-size: 18px;
           color: #b0b4bf;
+          cursor: pointer;
+        }
+        li:hover {
+          background: #eef1f6;
         }
 
         li:first-child {
@@ -59,9 +92,15 @@ const ToggleBar: React.FC<ToggleBarProps> = ({ options, selected, onChange }) =>
         li.selected {
           background: white;
           color: #091636;
+          cursor: default;
+        }
+
+        .link {
+          color: unset;
+          text-decoration: none;
         }
       `}</style>
-    </ul>
+    </div>
   );
 };
 

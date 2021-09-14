@@ -1,4 +1,5 @@
 import { Context } from '@cryptostats/sdk';
+import { getRollupSpenders } from './rollup-spenders';
 
 /*
 This commented code is the way that things _should_ be calculated: by fetching gas prices
@@ -76,6 +77,7 @@ export function setup(sdk: Context) {
       feeTransferEth: getTransferTokenCost,
       feeTransferERC20: getTransferTokenCost,
       feeSwap: getSwapCost,
+      oneDayGasFeesPaid: getRollupSpenders(sdk, 'optimism'),
     },
     metadata: {
       icon: sdk.ipfs.getDataURILoader(

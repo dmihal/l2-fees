@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { NextPage, GetStaticProps } from 'next';
-import { useRouter } from 'next/router';
 import 'data/adapters';
 import sdk from 'data/sdk';
-import List from 'components/List';
+import GasList from 'components/GasList';
 import Button from 'components/Button';
 import SocialTags from 'components/SocialTags';
 import ToggleBar from 'components/ToggleBar';
@@ -28,27 +27,13 @@ const GTCIcon: React.FC = () => (
 );
 
 export const Home: NextPage<HomeProps> = ({ data }) => {
-  const router = useRouter();
-  const [type, setType] = useState('feeTransferEth');
-
-  useEffect(() => {
-    if (router.query.tab) {
-      setType(router.query.tab.toString());
-      router.replace(router.pathname);
-    }
-  }, [router.query]);
-
   return (
     <main>
       <SocialTags />
 
       <h1 className="title">L2 Fees</h1>
 
-      <p className="description">
-        Ethereum Layer-1 is expensive.
-        <br />
-        How much does it cost to use Layer-2?
-      </p>
+      <p className="description">How much are rollups paying for Ethereum&apos;s security?</p>
 
       <p className="heart">
         <a href="https://cryptofees.info">CryptoFees.info</a>
@@ -63,17 +48,17 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
 
       <ToggleBar
         options={[
-          { value: 'feeTransferEth', label: 'Transfer ETH' },
-          { value: 'feeTransferERC20', label: 'Transfer tokens' },
-          { value: 'feeSwap', label: 'Swap tokens' },
+          { value: 'feeTransferEth', label: 'Transfer ETH', href: '/' },
+          { value: 'feeTransferERC20', label: 'Transfer tokens', href: '/?tab=feeTransferERC20' },
+          { value: 'feeSwap', label: 'Swap tokens', href: '/?tab=feeSwap' },
           'separator',
-          { value: 'rollupGas', label: 'Rollup Gas Consumption', href: '/rollup-gas-spent' },
+          { value: 'rollupGas', label: 'Rollup Gas Consumption' },
         ]}
-        selected={type}
-        onChange={setType}
+        selected="rollupGas"
+        onChange={() => null}
       />
 
-      <List data={data} query={type} />
+      <GasList data={data} />
 
       <style jsx>{`
         main {
@@ -116,11 +101,12 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
 };
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  const list = sdk.getList('fees');
-  const data = await list.executeQueriesWithMetadata(
-    ['feeTransferEth', 'feeTransferERC20', 'feeSwap'],
-    { allowMissingQuery: true }
-  );
+  const list = sdk.getList('feeSpenders');
+  const date = sdk.date.offsetDaysFormatted(sdk.date.formatDate(new Date()), -1);
+
+  const data = await list.executeQueryWithMetadata('oneDayGasFeesPaid', date, {
+    allowMissingQuery: true,
+  });
 
   return { props: { data }, revalidate: 5 * 60 };
 };

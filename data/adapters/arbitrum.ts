@@ -1,4 +1,5 @@
 import { Context } from '@cryptostats/sdk';
+import { getRollupSpenders } from './rollup-spenders';
 
 const ARB_GAS_PRECOMPILE = '0x000000000000000000000000000000000000006C';
 
@@ -26,6 +27,7 @@ export function setup(sdk: Context) {
       feeTransferEth: getFeeResolverForCost(644000),
       feeTransferERC20: getFeeResolverForCost(708377),
       feeSwap: getFeeResolverForCost(1110894),
+      oneDayGasFeesPaid: getRollupSpenders(sdk, 'arbitrum'),
     },
     metadata: {
       icon: sdk.ipfs.getDataURILoader(

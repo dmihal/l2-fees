@@ -9,11 +9,17 @@ import { setup as setupOptimism } from './optimism';
 import { setup as setupZKSync } from './zksync';
 
 const feesList = sdk.getList('fees');
+const feeSpenders = sdk.getList('feeSpenders');
 
 feesList.addAdaptersWithSetupFunction(setupEthereum);
 feesList.addAdaptersWithSetupFunction(setupArbitrum);
-feesList.addAdaptersWithSetupFunction(setupAztec)
+feesList.addAdaptersWithSetupFunction(setupAztec);
 feesList.addAdaptersWithSetupFunction(setupHermez);
-feesList.addAdaptersWithSetupFunction(setupLoopring)
+feesList.addAdaptersWithSetupFunction(setupLoopring);
 feesList.addAdaptersWithSetupFunction(setupOptimism);
-feesList.addAdaptersWithSetupFunction(setupZKSync)
+feesList.addAdaptersWithSetupFunction(setupZKSync);
+
+feeSpenders.addAdaptersWithSetupFunction(setupArbitrum);
+feeSpenders.addAdaptersWithSetupFunction(setupOptimism);
+feeSpenders.addAdaptersWithSetupFunction(setupLoopring);
+feeSpenders.addAdaptersWithSetupFunction(setupZKSync);
