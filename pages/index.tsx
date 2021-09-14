@@ -8,9 +8,11 @@ import Button from 'components/Button';
 import SocialTags from 'components/SocialTags';
 import ToggleBar from 'components/ToggleBar';
 import gtc from 'components/icons/gtc.svg';
+import GasList from 'components/GasList';
 
 interface HomeProps {
   data: any[];
+  gasData: any[];
 }
 
 const GTCIcon: React.FC = () => (
@@ -27,7 +29,7 @@ const GTCIcon: React.FC = () => (
   </div>
 );
 
-export const Home: NextPage<HomeProps> = ({ data }) => {
+export const Home: NextPage<HomeProps> = ({ data, gasData }) => {
   const router = useRouter();
   const [type, setType] = useState('feeTransferEth');
 
@@ -66,14 +68,20 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
           { value: 'feeTransferEth', label: 'Transfer ETH' },
           { value: 'feeTransferERC20', label: 'Transfer tokens' },
           { value: 'feeSwap', label: 'Swap tokens' },
-          'separator',
-          { value: 'rollupGas', label: 'Rollup Gas Consumption', href: '/rollup-gas-spent' },
         ]}
         selected={type}
         onChange={setType}
       />
 
       <List data={data} query={type} />
+
+      <p className="description" style={{ marginTop: '48px' }}>
+        Rollups must pay Ethereum for security.
+        <br />
+        How much are they spending?
+      </p>
+
+      <GasList data={gasData} />
 
       <style jsx>{`
         main {
@@ -122,7 +130,16 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
     { allowMissingQuery: true }
   );
 
-  return { props: { data }, revalidate: 5 * 60 };
+  const gasList = sdk.getList('feeSpenders');
+  const date = sdk.date.offsetDaysFormatted(sdk.date.formatDate(new Date()), -1);
+
+  const gasData = await gasList.executeQueriesWithMetadata(
+    ['oneDayGasFeesPaidETH', 'oneDayGasFeesPaidUSD'],
+    date,
+    { allowMissingQuery: true }
+  );
+
+  return { props: { data, gasData }, revalidate: 5 * 60 };
 };
 
 export default Home;
