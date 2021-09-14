@@ -77,7 +77,8 @@ export function setup(sdk: Context) {
       feeTransferEth: getTransferTokenCost,
       feeTransferERC20: getTransferTokenCost,
       feeSwap: getSwapCost,
-      oneDayGasFeesPaid: getRollupSpenders(sdk, 'optimism'),
+      oneDayGasFeesPaidETH: getRollupSpenders(sdk, 'optimism'),
+      oneDayGasFeesPaidUSD: getRollupSpenders(sdk, 'optimism', true),
     },
     metadata: {
       icon: sdk.ipfs.getDataURILoader(

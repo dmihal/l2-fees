@@ -1,4 +1,5 @@
 import { Context } from '@cryptostats/sdk';
+import { getRollupSpenders } from './rollup-spenders';
 
 export function setup(sdk: Context) {
   const getFeeForTransfer = async () => {
@@ -13,6 +14,8 @@ export function setup(sdk: Context) {
     queries: {
       feeTransferEth: getFeeForTransfer,
       feeTransferERC20: getFeeForTransfer,
+      oneDayGasFeesPaidETH: getRollupSpenders(sdk, 'hermez'),
+      oneDayGasFeesPaidUSD: getRollupSpenders(sdk, 'hermez', true),
     },
     metadata: {
       icon: sdk.ipfs.getDataURILoader(

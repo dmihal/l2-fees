@@ -33,7 +33,11 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
 
       <h1 className="title">L2 Fees</h1>
 
-      <p className="description">How much are rollups paying for Ethereum&apos;s security?</p>
+      <p className="description">
+        Rollups must pay Ethereum for security.
+        <br />
+        How much are they spending?
+      </p>
 
       <p className="heart">
         <a href="https://cryptofees.info">CryptoFees.info</a>
@@ -104,9 +108,11 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const list = sdk.getList('feeSpenders');
   const date = sdk.date.offsetDaysFormatted(sdk.date.formatDate(new Date()), -1);
 
-  const data = await list.executeQueryWithMetadata('oneDayGasFeesPaid', date, {
-    allowMissingQuery: true,
-  });
+  const data = await list.executeQueriesWithMetadata(
+    ['oneDayGasFeesPaidETH', 'oneDayGasFeesPaidUSD'],
+    date,
+    { allowMissingQuery: true }
+  );
 
   return { props: { data }, revalidate: 5 * 60 };
 };

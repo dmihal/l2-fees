@@ -43,7 +43,15 @@ const Row: React.FC<RowProps> = ({ protocol }) => {
             subtitle={protocol.metadata.subtitle}
           />
         </div>
-        <div className="amount">{protocol.result.toFixed(2)} ETH</div>
+        <div className="amount">
+          <div>{protocol.results.oneDayGasFeesPaidETH.toFixed(2)} ETH</div>
+          <div className="usd">
+            {protocol.results.oneDayGasFeesPaidUSD.toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'USD',
+            })}
+          </div>
+        </div>
         <div className="arrow">{open ? <ChevronUp /> : <ChevronDown />}</div>
       </a>
 
@@ -89,6 +97,10 @@ const Row: React.FC<RowProps> = ({ protocol }) => {
           min-width: 200px;
           text-align: right;
           font-family: 'Noto Sans TC', sans-serif;
+        }
+        .usd {
+          font-size: 12px;
+          color: #808080;
         }
 
         .arrow {

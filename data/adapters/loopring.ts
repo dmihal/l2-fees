@@ -36,7 +36,8 @@ export function setup(sdk: Context) {
       feeTransferEth: getFeeForTransfer,
       feeTransferERC20: getFeeForTransfer,
       feeSwap: getFeeForSwap,
-      oneDayGasFeesPaid: getRollupSpenders(sdk, 'loopring'),
+      oneDayGasFeesPaidETH: getRollupSpenders(sdk, 'loopring'),
+      oneDayGasFeesPaidUSD: getRollupSpenders(sdk, 'loopring', true),
     },
     metadata: {
       icon: sdk.ipfs.getDataURILoader(

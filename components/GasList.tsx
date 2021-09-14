@@ -7,8 +7,8 @@ interface ListProps {
 
 const List: React.FC<ListProps> = ({ data }) => {
   const sortedData = data
-    .filter((protocol: any) => !!protocol.result)
-    .sort((a: any, b: any) => b.result - a.result);
+    .filter((protocol: any) => !!protocol.results.oneDayGasFeesPaidETH)
+    .sort((a: any, b: any) => b.results.oneDayGasFeesPaidETH - a.results.oneDayGasFeesPaidETH);
 
   return (
     <div className="list">

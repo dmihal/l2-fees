@@ -20,6 +20,7 @@ feesList.addAdaptersWithSetupFunction(setupOptimism);
 feesList.addAdaptersWithSetupFunction(setupZKSync);
 
 feeSpenders.addAdaptersWithSetupFunction(setupArbitrum);
-feeSpenders.addAdaptersWithSetupFunction(setupOptimism);
 feeSpenders.addAdaptersWithSetupFunction(setupLoopring);
+feeSpenders.addAdaptersWithSetupFunction(setupOptimism);
+feeSpenders.addAdaptersWithSetupFunction(setupHermez);
 feeSpenders.addAdaptersWithSetupFunction(setupZKSync);
