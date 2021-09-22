@@ -1,7 +1,7 @@
 import { CryptoStatsSDK } from '@cryptostats/sdk';
 
 const sdk = new CryptoStatsSDK({
-  ipfsGateway: 'http://subgraph.ethburned.com:5001',
+  ipfsGateway: 'https://ipfs.cryptostats.community',
 });
 
 sdk.ethers.addProvider('arbitrum-one', 'https://arb1.arbitrum.io/rpc');
