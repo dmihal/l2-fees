@@ -61,7 +61,7 @@ export function setup(sdk: Context) {
       l2BeatSlug: 'boba',
       website: 'https://boba.network',
       flags: {
-        throtle: 'boba is throttled while in beta. Fees will decrease as this throttle is lifted.',
+        throtle: 'Boba is throttled while in beta. Fees will decrease as this throttle is lifted.',
       },
     },
   });
