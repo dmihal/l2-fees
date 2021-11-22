@@ -55,7 +55,7 @@ export function setup(sdk: Context) {
         'image/png'
       ),
       category: 'l2',
-      name: 'Boban Network',
+      name: 'Boba Network',
       description:
         'Boba is an Optimistic Rollup scaling solution that claims to reduce gas fees, improve transaction throughput, and extend the capabilities of smart contracts.',
       l2BeatSlug: 'bobanetwork',
