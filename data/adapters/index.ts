@@ -7,13 +7,15 @@ import { setup as setupHermez } from './hermez';
 import { setup as setupLoopring } from './loopring';
 import { setup as setupOptimism } from './optimism';
 import { setup as setupZKSync } from './zksync';
+import { setup as setupBoba } from './boba';
 
 const feesList = sdk.getList('fees');
 
 feesList.addAdaptersWithSetupFunction(setupEthereum);
 feesList.addAdaptersWithSetupFunction(setupArbitrum);
-feesList.addAdaptersWithSetupFunction(setupAztec)
+feesList.addAdaptersWithSetupFunction(setupAztec);
 feesList.addAdaptersWithSetupFunction(setupHermez);
-feesList.addAdaptersWithSetupFunction(setupLoopring)
+feesList.addAdaptersWithSetupFunction(setupLoopring);
 feesList.addAdaptersWithSetupFunction(setupOptimism);
-feesList.addAdaptersWithSetupFunction(setupZKSync)
+feesList.addAdaptersWithSetupFunction(setupZKSync);
+feesList.addAdaptersWithSetupFunction(setupBoba);
