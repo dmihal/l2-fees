@@ -58,7 +58,7 @@ export function setup(sdk: Context) {
       name: 'Boban Network',
       description:
         'Boba is an Optimistic Rollup scaling solution that claims to reduce gas fees, improve transaction throughput, and extend the capabilities of smart contracts.',
-      l2BeatSlug: 'boba',
+      l2BeatSlug: 'bobanetwork',
       website: 'https://boba.network',
       flags: {
         throtle: 'Boba is throttled while in beta. Fees will decrease as this throttle is lifted.',
