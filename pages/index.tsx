@@ -105,7 +105,9 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
 };
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  const list = sdk.getList('fees');
+  const list = sdk.getList('l2-fees');
+  await list.fetchAdapters();
+
   const data = await list.executeQueriesWithMetadata(
     ['feeTransferEth', 'feeTransferERC20', 'feeSwap'],
     { allowMissingQuery: true }
