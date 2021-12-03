@@ -4,11 +4,17 @@ const Footer: React.FC = () => {
   return (
     <footer>
       <div>Data updates continuously</div>
+
       <div>
-        Created by{' '}
-        <a href="https://twitter.com/dmihal" target="twitter">
-          David Mihal
-        </a>
+        Powered by <a href="https://cryptostats.community">CryptoStats</a>
+      </div>
+
+      <div>
+        <a href="https://forum.cryptostats.community">Request Project</a>
+        {' | '}
+        <a href="https://t.me/+VNTjwOvI-W40Y2E5">Join our Telegram</a>
+        {' | '}
+        <a href="https://github.com/dmihal/l2-fees">GitHub</a>
       </div>
 
       <div>
@@ -22,6 +28,11 @@ const Footer: React.FC = () => {
         {' | '}
         <a href="https://open-orgs.info">open-orgs.info</a>
       </div>
+      <style jsx>{`
+        footer {
+          text-align: center;
+        }
+      `}</style>
     </footer>
   );
 };
