@@ -24,7 +24,7 @@ const Header = () => {
 
           <ul className="dropdown">
             <li className="header-link showable">
-              <a href="https://open-orgs.info/">open-orgs.info</a>
+              <a href="https://openorgs.info/">openorgs.info</a>
             </li>
             <li className="header-link showable">
               <a href="https://ethburned.info/">ethburned.info</a>

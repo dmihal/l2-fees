@@ -12,12 +12,14 @@ path.resolve(process.cwd(), 'fonts', 'fonts.conf');
 path.resolve(process.cwd(), 'fonts', 'SofiaProRegular.ttf');
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const list = sdk.getList('fees');
+  const list = sdk.getList('l2-fees');
+  await list.fetchAdapters();
+
   const data = await list.executeQueriesWithMetadata(['feeTransferEth'], {
     allowMissingQuery: true,
   });
 
-  const filteredData = data.filter((val: any) => !!val);
+  const filteredData = data.filter((val: any) => !!val && val.results.feeTransferEth);
 
   const svg = ReactDOMServer.renderToString(
     React.createElement(SocialCard, {
