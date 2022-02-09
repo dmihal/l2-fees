@@ -15,18 +15,17 @@ const toggle = (isOpen: boolean) => !isOpen;
 
 const cardHeight = 600;
 
+const format = (num?: number) => num && (num < 0.01
+  ? '< $0.01'
+  : num?.toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }));
+
 const Row: React.FC<RowProps> = ({ protocol, query }) => {
   const [open, setOpen] = useState(false);
 
   const isApp = protocol.metadata.category !== 'l1';
-
-  const amount =
-    protocol.results[query] < 0.01
-      ? '< $0.01'
-      : protocol.results[query]?.toLocaleString('en-US', {
-          style: 'currency',
-          currency: 'USD',
-        });
 
   const flags = {
     ...protocol.metadata.flags,
@@ -59,7 +58,8 @@ const Row: React.FC<RowProps> = ({ protocol, query }) => {
           />
           <Flags flags={flags} />
         </div>
-        <div className="amount">{amount}</div>
+        <div className="amount">{format(protocol.results.feeTransferEth)}</div>
+        <div className="amount">{format(protocol.results.feeSwap)}</div>
         <div className="arrow">{open ? <ChevronUp /> : <ChevronDown />}</div>
       </a>
 
@@ -102,7 +102,7 @@ const Row: React.FC<RowProps> = ({ protocol, query }) => {
 
         .amount {
           padding-left: 32px;
-          min-width: 200px;
+          min-width: 160px;
           text-align: right;
           font-family: 'Noto Sans TC', sans-serif;
         }

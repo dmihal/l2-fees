@@ -3,16 +3,10 @@ import Row from './Row';
 
 interface ListProps {
   data: any[];
-  query: string;
 }
 
-const headers: { [key: string]: string } = {
-  feeTransferEth: 'Current cost to transfer ETH',
-  feeTransferERC20: 'Current cost to transfer tokens',
-  feeSwap: 'Current cost to swap tokens',
-};
-
-const List: React.FC<ListProps> = ({ data, query }) => {
+const List: React.FC<ListProps> = ({ data }) => {
+  const query = 'feeTransferEth'
   const sortedData = data
     .filter((protocol: any) => !!protocol.results[query])
     .sort((a: any, b: any) => a.results[query] - b.results[query]);
@@ -21,7 +15,8 @@ const List: React.FC<ListProps> = ({ data, query }) => {
     <div className="list">
       <div className="header">
         <div className="name">Name</div>
-        <div className="amount">{headers[query]}</div>
+        <div className="amount">Send ETH</div>
+        <div className="amount">Swap tokens</div>
       </div>
 
       {sortedData.map((protocol: any) => (
@@ -33,8 +28,8 @@ const List: React.FC<ListProps> = ({ data, query }) => {
           border: solid 1px lightGray;
           border-radius: 0px;
           margin: 4px;
-          width: 500px;
-          max-width: 100%;
+          max-width: 600px;
+          width: 100%;
         }
 
         .header {
@@ -76,7 +71,7 @@ const List: React.FC<ListProps> = ({ data, query }) => {
         }
 
         .amount {
-          min-width: 200px;
+          min-width: 160px;
           text-align: right;
         }
 

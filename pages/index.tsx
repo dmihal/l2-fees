@@ -62,7 +62,7 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
         onChange={setType}
       />
 
-      <List data={data} query={type} />
+      <List data={data} />
 
       <style jsx>{`
         main {
