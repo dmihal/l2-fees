@@ -1,31 +1,25 @@
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 import React from 'react';
-import ReactGA from 'react-ga4';
 
 interface ToggleBarProps {
-  options: { value: string; label: string }[];
-  selected: string;
-  onChange: (newSelection: string) => void;
+  options: { path: string; label: string }[];
 }
 
-const ToggleBar: React.FC<ToggleBarProps> = ({ options, selected, onChange }) => {
-  const change = (id: string, label: string) => {
-    ReactGA.event({
-      category: 'Navigation',
-      action: 'Change Tab',
-      label: label,
-    });
-    onChange(id);
-  };
+const ToggleBar: React.FC<ToggleBarProps> = ({ options }) => {
+  const router = useRouter();
 
   return (
     <ul className="bar">
       {options.map((option) => (
-        <li
-          key={option.value}
-          className={option.value === selected ? 'selected' : ''}
-          onClick={() => change(option.value, option.label)}
-        >
-          {option.label}
+        <li key={option.path} className={option.path === router.pathname ? 'selected' : ''}>
+          {option.path === router.pathname ? (
+            option.label
+          ) : (
+            <Link href={option.path}>
+              <a>{option.label}</a>
+            </Link>
+          )}
         </li>
       ))}
 
@@ -45,6 +39,11 @@ const ToggleBar: React.FC<ToggleBarProps> = ({ options, selected, onChange }) =>
           color: #b0b4bf;
         }
 
+        a {
+          color: #b0b4bf;
+          text-decoration: none;
+        }
+
         li:first-child {
           border-top-left-radius: 6px;
           border-bottom-left-radius: 6px;
@@ -56,6 +55,7 @@ const ToggleBar: React.FC<ToggleBarProps> = ({ options, selected, onChange }) =>
           border-right: 1px solid #d0d1d9;
         }
 
+        li.selected,
         li.selected {
           background: white;
           color: #091636;

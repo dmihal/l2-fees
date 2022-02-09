@@ -2,11 +2,11 @@ import React from 'react';
 import { NextPage, GetStaticProps } from 'next';
 import 'data/adapters';
 import sdk from 'data/sdk';
-import List from 'components/List';
 import Button from 'components/Button';
 import SocialTags from 'components/SocialTags';
 import ToggleBar from 'components/ToggleBar';
 import gtc from 'components/icons/gtc.svg';
+import L1List from 'components/L1List';
 
 interface HomeProps {
   data: any[];
@@ -33,11 +33,7 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
 
       <h1 className="title">L2 Fees</h1>
 
-      <p className="description">
-        Ethereum Layer-1 is expensive.
-        <br />
-        How much does it cost to use Layer-2?
-      </p>
+      <p className="description">How much are rollups paying for Ethereum&apos;s security?</p>
 
       <p className="heart">
         <a href="https://cryptofees.info">CryptoFees.info</a>
@@ -57,7 +53,7 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
         ]}
       />
 
-      <List data={data} />
+      <L1List data={data} />
 
       <style jsx>{`
         main {
@@ -100,15 +96,17 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
 };
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  const list = sdk.getList('l2-fees');
+  const list = sdk.getCollection('rollup-l1-fees');
   await list.fetchAdapters();
+  await list.fetchAdapterFromIPFS('QmXAS96EqCHc2JNS8yf7vvfcLdbBb9gmfeHLKLSrpUhEv5');
 
-  const data = await list.executeQueriesWithMetadata(
-    ['feeTransferEth', 'feeTransferERC20', 'feeSwap'],
+  const data = await list.executeQueryWithMetadata(
+    'oneDayFeesPaidUSD',
+    sdk.date.getYesterdayDate(),
     { allowMissingQuery: true }
   );
 
-  return { props: { data }, revalidate: 5 * 60 };
+  return { props: { data }, revalidate: 15 * 60 };
 };
 
 export default Home;
