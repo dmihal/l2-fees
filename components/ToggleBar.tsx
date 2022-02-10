@@ -43,6 +43,7 @@ const ToggleBar: React.FC<ToggleBarProps> = ({ options, selected, onChange }) =>
           background: transparent;
           font-size: 18px;
           color: #b0b4bf;
+          cursor: pointer;
         }
 
         li:first-child {
@@ -59,6 +60,7 @@ const ToggleBar: React.FC<ToggleBarProps> = ({ options, selected, onChange }) =>
         li.selected {
           background: white;
           color: #091636;
+          cursor: default;
         }
       `}</style>
     </ul>
