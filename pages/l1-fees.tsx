@@ -2,10 +2,8 @@ import React from 'react';
 import { NextPage, GetStaticProps } from 'next';
 import 'data/adapters';
 import sdk from 'data/sdk';
-import Button from 'components/Button';
 import SocialTags from 'components/SocialTags';
 import ToggleBar from 'components/ToggleBar';
-import gtc from 'components/icons/gtc.svg';
 import L1List from 'components/L1List';
 import L1Chart from 'components/L1Chart';
 
@@ -13,20 +11,6 @@ interface HomeProps {
   timeData: any[];
   dataWithMetadata: any[];
 }
-
-const GTCIcon: React.FC = () => (
-  <div className="gtc">
-    <style jsx>{`
-      .gtc {
-        background: url('${gtc}');
-        height: 18px;
-        width: 18px;
-        margin-right: 2px;
-        flex: 0 0 18px;
-      }
-    `}</style>
-  </div>
-);
 
 export const Home: NextPage<HomeProps> = ({ timeData, dataWithMetadata }) => {
   return (
@@ -43,10 +27,6 @@ export const Home: NextPage<HomeProps> = ({ timeData, dataWithMetadata }) => {
         <a href="https://l2beat.com">L2Beat.com</a>
         {' = ❤️'}
       </p>
-
-      <Button Icon={GTCIcon} target="gitcoin" href="https://gitcoin.co/grants/1624/cryptofeesinfo">
-        Support us on Gitcoin
-      </Button>
 
       <ToggleBar
         options={[
@@ -100,18 +80,19 @@ export const Home: NextPage<HomeProps> = ({ timeData, dataWithMetadata }) => {
         .chart-container {
           width: 100%;
           max-width: 800px;
+          margin: 10px 0;
         }
       `}</style>
     </main>
   );
 };
 
-const NUM_DAYS = 14;
+const NUM_DAYS = 16;
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const list = sdk.getCollection('rollup-l1-fees');
   await list.fetchAdapters();
-  await list.fetchAdapterFromIPFS('Qmbi25zvi1fXyp9FSWdstWaN1A83X4aHVw4L6HV9Cap2i6');
+  await list.fetchAdapterFromIPFS('QmU5daDDW4D9Wv8G9ak21kZhSQDEuiuUcHVutpcqHEQXoz');
 
   const dates: string[] = [];
   const yesterday = sdk.date.getYesterdayDate();

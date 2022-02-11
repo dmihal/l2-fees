@@ -30,18 +30,27 @@ const ToggleBar: React.FC<ToggleBarProps> = ({ options }) => {
         }
 
         li {
-          padding: 6px;
           list-style: none;
           border: 1px solid #d0d1d9;
           border-right: none;
           background: transparent;
           font-size: 18px;
           color: #b0b4bf;
+          display: flex;
+          align-items: center;
+          overflow: hidden;
         }
 
         a {
           color: #b0b4bf;
           text-decoration: none;
+          display: block;
+          padding: 6px;
+        }
+
+        a:hover {
+          text-decoration: none;
+          background: white;
         }
 
         li:first-child {
@@ -55,10 +64,10 @@ const ToggleBar: React.FC<ToggleBarProps> = ({ options }) => {
           border-right: 1px solid #d0d1d9;
         }
 
-        li.selected,
         li.selected {
           background: white;
           color: #091636;
+          padding: 6px;
         }
       `}</style>
     </ul>

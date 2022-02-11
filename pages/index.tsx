@@ -3,28 +3,12 @@ import { NextPage, GetStaticProps } from 'next';
 import 'data/adapters';
 import sdk from 'data/sdk';
 import List from 'components/List';
-import Button from 'components/Button';
 import SocialTags from 'components/SocialTags';
 import ToggleBar from 'components/ToggleBar';
-import gtc from 'components/icons/gtc.svg';
 
 interface HomeProps {
   data: any[];
 }
-
-const GTCIcon: React.FC = () => (
-  <div className="gtc">
-    <style jsx>{`
-      .gtc {
-        background: url('${gtc}');
-        height: 18px;
-        width: 18px;
-        margin-right: 2px;
-        flex: 0 0 18px;
-      }
-    `}</style>
-  </div>
-);
 
 export const Home: NextPage<HomeProps> = ({ data }) => {
   return (
@@ -45,10 +29,6 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
         <a href="https://l2beat.com">L2Beat.com</a>
         {' = ❤️'}
       </p>
-
-      <Button Icon={GTCIcon} target="gitcoin" href="https://gitcoin.co/grants/1624/cryptofeesinfo">
-        Support us on Gitcoin
-      </Button>
 
       <ToggleBar
         options={[

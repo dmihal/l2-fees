@@ -68,11 +68,13 @@ const L1Chart: React.FC<SeriesChartProps> = ({ data }) => {
     .map(([key]) => key);
 
   return (
-    <Container height={200}>
-      <AreaChart height={200} width={width} margin={margin} barCategoryGap={1} data={data}>
+    <Container height={300}>
+      <AreaChart height={300} width={width} margin={margin} barCategoryGap={1} data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="date" />
-        <YAxis tickFormatter={toDollars} />
+        <YAxis
+          tickFormatter={(num: number) => '$' + Math.floor(num / 1000) + (num > 0 ? 'k' : '')}
+        />
         <Tooltip formatter={toDollars} />
 
         {keysInOrder.map((id) =>

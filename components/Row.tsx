@@ -16,13 +16,14 @@ const toggle = (isOpen: boolean) => !isOpen;
 const cardHeight = 600;
 
 const format = (num?: number) =>
-  num &&
-  (num < 0.01
-    ? '< $0.01'
-    : num?.toLocaleString('en-US', {
-        style: 'currency',
-        currency: 'USD',
-      }));
+  (num &&
+    (num < 0.01
+      ? '< $0.01'
+      : num?.toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        }))) ||
+  '-';
 
 const Row: React.FC<RowProps> = ({ protocol, query }) => {
   const [open, setOpen] = useState(false);
