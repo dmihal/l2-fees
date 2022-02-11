@@ -1,26 +1,25 @@
 import React from 'react';
-import Row from './Row';
+import L1Row from './L1Row';
 
 interface ListProps {
   data: any[];
 }
 
-const List: React.FC<ListProps> = ({ data }) => {
-  const query = 'feeTransferEth';
+const L1List: React.FC<ListProps> = ({ data }) => {
+  const query = 'oneDayFeesPaidUSD';
   const sortedData = data
-    .filter((protocol: any) => !!protocol.results[query])
-    .sort((a: any, b: any) => a.results[query] - b.results[query]);
+    .filter((protocol: any) => !!protocol.result)
+    .sort((a: any, b: any) => b.result - a.result);
 
   return (
     <div className="list">
       <div className="header">
         <div className="name">Name</div>
-        <div className="amount">Send ETH</div>
-        <div className="amount">Swap tokens</div>
+        <div className="amount">One day security costs</div>
       </div>
 
       {sortedData.map((protocol: any) => (
-        <Row protocol={protocol} key={protocol.id} query={query} />
+        <L1Row protocol={protocol} key={protocol.id} query={query} />
       ))}
 
       <style jsx>{`
@@ -111,4 +110,4 @@ const List: React.FC<ListProps> = ({ data }) => {
   );
 };
 
-export default List;
+export default L1List;

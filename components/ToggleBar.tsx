@@ -1,31 +1,25 @@
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 import React from 'react';
-import ReactGA from 'react-ga4';
 
 interface ToggleBarProps {
-  options: { value: string; label: string }[];
-  selected: string;
-  onChange: (newSelection: string) => void;
+  options: { path: string; label: string }[];
 }
 
-const ToggleBar: React.FC<ToggleBarProps> = ({ options, selected, onChange }) => {
-  const change = (id: string, label: string) => {
-    ReactGA.event({
-      category: 'Navigation',
-      action: 'Change Tab',
-      label: label,
-    });
-    onChange(id);
-  };
+const ToggleBar: React.FC<ToggleBarProps> = ({ options }) => {
+  const router = useRouter();
 
   return (
     <ul className="bar">
       {options.map((option) => (
-        <li
-          key={option.value}
-          className={option.value === selected ? 'selected' : ''}
-          onClick={() => change(option.value, option.label)}
-        >
-          {option.label}
+        <li key={option.path} className={option.path === router.pathname ? 'selected' : ''}>
+          {option.path === router.pathname ? (
+            option.label
+          ) : (
+            <Link href={option.path}>
+              <a>{option.label}</a>
+            </Link>
+          )}
         </li>
       ))}
 
@@ -36,14 +30,27 @@ const ToggleBar: React.FC<ToggleBarProps> = ({ options, selected, onChange }) =>
         }
 
         li {
-          padding: 6px;
           list-style: none;
           border: 1px solid #d0d1d9;
           border-right: none;
           background: transparent;
           font-size: 18px;
           color: #b0b4bf;
-          cursor: pointer;
+          display: flex;
+          align-items: center;
+          overflow: hidden;
+        }
+
+        a {
+          color: #b0b4bf;
+          text-decoration: none;
+          display: block;
+          padding: 6px;
+        }
+
+        a:hover {
+          text-decoration: none;
+          background: white;
         }
 
         li:first-child {
@@ -60,7 +67,7 @@ const ToggleBar: React.FC<ToggleBarProps> = ({ options, selected, onChange }) =>
         li.selected {
           background: white;
           color: #091636;
-          cursor: default;
+          padding: 6px;
         }
       `}</style>
     </ul>
