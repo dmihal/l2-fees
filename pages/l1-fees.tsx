@@ -7,9 +7,11 @@ import SocialTags from 'components/SocialTags';
 import ToggleBar from 'components/ToggleBar';
 import gtc from 'components/icons/gtc.svg';
 import L1List from 'components/L1List';
+import L1Chart from 'components/L1Chart';
 
 interface HomeProps {
-  data: any[];
+  timeData: any[];
+  dataWithMetadata: any[];
 }
 
 const GTCIcon: React.FC = () => (
@@ -26,7 +28,7 @@ const GTCIcon: React.FC = () => (
   </div>
 );
 
-export const Home: NextPage<HomeProps> = ({ data }) => {
+export const Home: NextPage<HomeProps> = ({ timeData, dataWithMetadata }) => {
   return (
     <main>
       <SocialTags />
@@ -53,7 +55,11 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
         ]}
       />
 
-      <L1List data={data} />
+      <L1List data={dataWithMetadata} />
+
+      <div className="chart-container">
+        <L1Chart data={timeData} />
+      </div>
 
       <style jsx>{`
         main {
@@ -90,23 +96,47 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
           font-size: 18px;
           font-style: italic;
         }
+
+        .chart-container {
+          width: 100%;
+          max-width: 800px;
+        }
       `}</style>
     </main>
   );
 };
 
+const NUM_DAYS = 14;
+
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const list = sdk.getCollection('rollup-l1-fees');
   await list.fetchAdapters();
-  await list.fetchAdapterFromIPFS('QmXAS96EqCHc2JNS8yf7vvfcLdbBb9gmfeHLKLSrpUhEv5');
+  await list.fetchAdapterFromIPFS('Qmbi25zvi1fXyp9FSWdstWaN1A83X4aHVw4L6HV9Cap2i6');
 
-  const data = await list.executeQueryWithMetadata(
-    'oneDayFeesPaidUSD',
-    sdk.date.getYesterdayDate(),
-    { allowMissingQuery: true }
+  const dates: string[] = [];
+  const yesterday = sdk.date.getYesterdayDate();
+  for (let i = 0; i <= NUM_DAYS; i += 1) {
+    dates.push(sdk.date.offsetDaysFormatted(yesterday, i - NUM_DAYS));
+  }
+
+  let timeData = await Promise.all(
+    dates.map(async (date: string) => ({
+      date,
+      result: await list.executeQuery('oneDayFeesPaidUSD', date),
+    }))
   );
 
-  return { props: { data }, revalidate: 15 * 60 };
+  timeData = timeData.map((oneDay) => ({
+    date: oneDay.date,
+    ...oneDay.result.reduce((map: any, result) => {
+      map[result.id] = result.result || 0;
+      return map;
+    }, {}),
+  }));
+
+  const dataWithMetadata = await list.executeQueryWithMetadata('oneDayFeesPaidUSD', yesterday);
+
+  return { props: { timeData, dataWithMetadata }, revalidate: 15 * 60 };
 };
 
 export default Home;

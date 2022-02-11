@@ -6,7 +6,7 @@ interface ListProps {
 }
 
 const List: React.FC<ListProps> = ({ data }) => {
-  const query = 'feeTransferEth'
+  const query = 'feeTransferEth';
   const sortedData = data
     .filter((protocol: any) => !!protocol.results[query])
     .sort((a: any, b: any) => a.results[query] - b.results[query]);
