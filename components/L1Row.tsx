@@ -9,6 +9,7 @@ import Flags from './Flags';
 interface RowProps {
   protocol: any;
   query: string;
+  total?: boolean;
 }
 
 const toggle = (isOpen: boolean) => !isOpen;
@@ -24,10 +25,8 @@ const format = (num?: number) =>
         currency: 'USD',
       }));
 
-const L1Row: React.FC<RowProps> = ({ protocol, query }) => {
+const L1Row: React.FC<RowProps> = ({ protocol, query, total }) => {
   const [open, setOpen] = useState(false);
-
-  const isApp = protocol.metadata.category !== 'l1';
 
   const flags = {
     ...protocol.metadata.flags,
@@ -47,7 +46,7 @@ const L1Row: React.FC<RowProps> = ({ protocol, query }) => {
             label: protocol.name,
           });
         }}
-        className={`item ${isApp ? 'app' : ''} ${open ? 'open' : ''}`}
+        className={`item ${total ? '' : 'app'} ${open ? 'open' : ''}`}
         style={{
           backgroundImage: protocol.metadata.icon ? `url('${protocol.metadata.icon}')` : undefined,
         }}

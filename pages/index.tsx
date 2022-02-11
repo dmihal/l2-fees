@@ -17,6 +17,13 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
 
       <h1 className="title">L2 Fees</h1>
 
+      <ToggleBar
+        options={[
+          { path: '/', label: 'L2 Transaction Fees' },
+          { path: '/l1-fees', label: 'Total L1 Security Costs' },
+        ]}
+      />
+
       <p className="description">
         Ethereum Layer-1 is expensive.
         <br />
@@ -29,13 +36,6 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
         <a href="https://l2beat.com">L2Beat.com</a>
         {' = ❤️'}
       </p>
-
-      <ToggleBar
-        options={[
-          { path: '/', label: 'L2 Transaction Fees' },
-          { path: '/l1-fees', label: 'Total L1 Security Costs' },
-        ]}
-      />
 
       <List data={data} />
 

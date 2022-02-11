@@ -19,6 +19,13 @@ export const Home: NextPage<HomeProps> = ({ timeData, dataWithMetadata }) => {
 
       <h1 className="title">L2 Fees</h1>
 
+      <ToggleBar
+        options={[
+          { path: '/', label: 'L2 Transaction Fees' },
+          { path: '/l1-fees', label: 'Total L1 Security Costs' },
+        ]}
+      />
+
       <p className="description">How much are rollups paying for Ethereum&apos;s security?</p>
 
       <p className="heart">
@@ -27,13 +34,6 @@ export const Home: NextPage<HomeProps> = ({ timeData, dataWithMetadata }) => {
         <a href="https://l2beat.com">L2Beat.com</a>
         {' = ❤️'}
       </p>
-
-      <ToggleBar
-        options={[
-          { path: '/', label: 'L2 Transaction Fees' },
-          { path: '/l1-fees', label: 'Total L1 Security Costs' },
-        ]}
-      />
 
       <L1List data={dataWithMetadata} />
 

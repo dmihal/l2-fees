@@ -11,6 +11,8 @@ const L1List: React.FC<ListProps> = ({ data }) => {
     .filter((protocol: any) => !!protocol.result)
     .sort((a: any, b: any) => b.result - a.result);
 
+  const total = data.reduce((total: number, row: any) => total + row.result, 0);
+
   return (
     <div className="list">
       <div className="header">
@@ -21,6 +23,7 @@ const L1List: React.FC<ListProps> = ({ data }) => {
       {sortedData.map((protocol: any) => (
         <L1Row protocol={protocol} key={protocol.id} query={query} />
       ))}
+      <L1Row total protocol={{ metadata: { name: 'Total' }, result: total }} query="total" />
 
       <style jsx>{`
         .list {
