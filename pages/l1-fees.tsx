@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NextPage, GetStaticProps } from 'next';
 import 'data/adapters';
 import sdk from 'data/sdk';
@@ -15,6 +15,7 @@ interface HomeProps {
 }
 
 export const Home: NextPage<HomeProps> = ({ timeData, dataWithMetadata, bundles }) => {
+  const [percent, setPercent] = useState(false);
   const bundledData = (dataWithMetadata = bundleItems(dataWithMetadata, bundles));
 
   return (
@@ -42,7 +43,13 @@ export const Home: NextPage<HomeProps> = ({ timeData, dataWithMetadata, bundles 
       <L1List data={bundledData} />
 
       <div className="chart-container">
-        <L1Chart data={timeData} />
+        <L1Chart data={timeData} percent={percent} />
+      </div>
+      <div>
+        <label>
+          <input type="checkbox" checked={percent} onChange={(e) => setPercent(e.target.checked)} />
+          Percent
+        </label>
       </div>
 
       <style jsx>{`
@@ -91,7 +98,7 @@ export const Home: NextPage<HomeProps> = ({ timeData, dataWithMetadata, bundles 
   );
 };
 
-const NUM_DAYS = 7;
+const NUM_DAYS = 21;
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const collection = sdk.getCollection('rollup-l1-fees');
