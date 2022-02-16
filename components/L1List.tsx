@@ -6,7 +6,6 @@ interface ListProps {
 }
 
 const L1List: React.FC<ListProps> = ({ data }) => {
-  const query = 'oneDayFeesPaidUSD';
   const sortedData = data
     .filter((protocol: any) => !!protocol.result)
     .sort((a: any, b: any) => b.result - a.result);
@@ -21,9 +20,9 @@ const L1List: React.FC<ListProps> = ({ data }) => {
       </div>
 
       {sortedData.map((protocol: any) => (
-        <L1Row protocol={protocol} key={protocol.id} query={query} />
+        <L1Row protocol={protocol} key={protocol.id} />
       ))}
-      <L1Row total protocol={{ metadata: { name: 'Total' }, result: total }} query="total" />
+      <L1Row total protocol={{ metadata: { name: 'Total' }, result: total }} />
 
       <style jsx>{`
         .list {

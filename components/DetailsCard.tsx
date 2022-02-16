@@ -2,6 +2,7 @@ import React from 'react';
 import Attribute from './Attribute';
 import Button from './Button';
 import l2BeatSVG from 'icons/l2beat.svg';
+import BundleItemRow from './BundleItemRow';
 
 interface DetailsCardProps {
   protocol: any;
@@ -25,6 +26,16 @@ const L2BeatIcon: React.FC = () => (
 const DetailsCard: React.FC<DetailsCardProps> = ({ protocol }) => {
   return (
     <div className="details-card">
+      {protocol.children && (
+        <div>
+          {protocol.children
+            .sort((a: any, b: any) => b.result - a.result)
+            .map((bundleItem: any) => (
+              <BundleItemRow item={bundleItem} key={bundleItem.id} />
+            ))}
+        </div>
+      )}
+
       <div className="metadata">
         {protocol.metadata.description && (
           <div className="description">{protocol.metadata.description}</div>

@@ -6,13 +6,17 @@ import SocialTags from 'components/SocialTags';
 import ToggleBar from 'components/ToggleBar';
 import L1List from 'components/L1List';
 import L1Chart from 'components/L1Chart';
+import { bundleItems } from 'utils';
 
 interface HomeProps {
   timeData: any[];
   dataWithMetadata: any[];
+  bundles: any;
 }
 
-export const Home: NextPage<HomeProps> = ({ timeData, dataWithMetadata }) => {
+export const Home: NextPage<HomeProps> = ({ timeData, dataWithMetadata, bundles }) => {
+  const bundledData = (dataWithMetadata = bundleItems(dataWithMetadata, bundles));
+
   return (
     <main>
       <SocialTags />
@@ -35,7 +39,7 @@ export const Home: NextPage<HomeProps> = ({ timeData, dataWithMetadata }) => {
         {' = ❤️'}
       </p>
 
-      <L1List data={dataWithMetadata} />
+      <L1List data={bundledData} />
 
       <div className="chart-container">
         <L1Chart data={timeData} />
@@ -87,12 +91,12 @@ export const Home: NextPage<HomeProps> = ({ timeData, dataWithMetadata }) => {
   );
 };
 
-const NUM_DAYS = 16;
+const NUM_DAYS = 7;
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  const list = sdk.getCollection('rollup-l1-fees');
-  await list.fetchAdapters();
-  await list.fetchAdapterFromIPFS('QmU5daDDW4D9Wv8G9ak21kZhSQDEuiuUcHVutpcqHEQXoz');
+  const collection = sdk.getCollection('rollup-l1-fees');
+  await collection.fetchAdapters();
+  await collection.fetchAdapterFromIPFS('QmQsMH61Su9f9dgf6SLyWpANLFv4Tj4DkeGiFHyBSkjoHX');
 
   const dates: string[] = [];
   const yesterday = sdk.date.getYesterdayDate();
@@ -103,21 +107,32 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   let timeData = await Promise.all(
     dates.map(async (date: string) => ({
       date,
-      result: await list.executeQuery('oneDayFeesPaidUSD', date),
+      result: await collection.executeQuery('oneDayFeesPaidUSD', date),
     }))
   );
 
   timeData = timeData.map((oneDay) => ({
     date: oneDay.date,
     ...oneDay.result.reduce((map: any, result) => {
-      map[result.id] = result.result || 0;
+      const id = result.bundle || result.id;
+      map[id] = (map[id] || 0) + (result.result || 0);
       return map;
     }, {}),
   }));
 
-  const dataWithMetadata = await list.executeQueryWithMetadata('oneDayFeesPaidUSD', yesterday);
+  const dataWithMetadata = await collection.executeQueryWithMetadata(
+    'oneDayFeesPaidUSD',
+    yesterday
+  );
 
-  return { props: { timeData, dataWithMetadata }, revalidate: 15 * 60 };
+  const bundles: any = {};
+  await Promise.all(
+    collection.bundleIds.map(async (id) => {
+      bundles[id] = await collection.getBundle(id);
+    })
+  );
+
+  return { props: { timeData, dataWithMetadata, bundles }, revalidate: 15 * 60 };
 };
 
 export default Home;

@@ -4,11 +4,10 @@ import ReactGA from 'react-ga4';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import DetailsCard from './DetailsCard';
 import RowName from './RowName';
-import Flags from './Flags';
+import { formatUSD } from 'utils';
 
 interface RowProps {
   protocol: any;
-  query: string;
   total?: boolean;
 }
 
@@ -16,22 +15,8 @@ const toggle = (isOpen: boolean) => !isOpen;
 
 const cardHeight = 600;
 
-const format = (num?: number) =>
-  num &&
-  (num < 0.01
-    ? '< $0.01'
-    : num?.toLocaleString('en-US', {
-        style: 'currency',
-        currency: 'USD',
-      }));
-
-const L1Row: React.FC<RowProps> = ({ protocol, query, total }) => {
+const L1Row: React.FC<RowProps> = ({ protocol, total }) => {
   const [open, setOpen] = useState(false);
-
-  const flags = {
-    ...protocol.metadata.flags,
-    ...(protocol.metadata.flagsByQuery || {})[query],
-  };
 
   return (
     <Fragment>
@@ -57,9 +42,8 @@ const L1Row: React.FC<RowProps> = ({ protocol, query, total }) => {
             shortName={protocol.metadata.shortName}
             subtitle={protocol.metadata.subtitle}
           />
-          <Flags flags={flags} />
         </div>
-        <div className="amount">{format(protocol.result)}</div>
+        <div className="amount">{formatUSD(protocol.result)}</div>
         <div className="arrow">{open ? <ChevronUp /> : <ChevronDown />}</div>
       </a>
 
