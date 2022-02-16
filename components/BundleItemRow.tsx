@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import Link from 'next/link';
 import { formatUSD } from 'utils';
 
 interface BundleItemRowProps {
@@ -9,17 +8,15 @@ interface BundleItemRowProps {
 const BundleItemRow: React.FC<BundleItemRowProps> = ({ item }) => {
   return (
     <Fragment>
-      <Link href={`/protocol/${item.id}`}>
-        <a
-          className="bundle-item"
-          style={{
-            backgroundImage: item.metadata.icon ? `url('${item.metadata.icon}')` : undefined,
-          }}
-        >
-          <div className="name">{item.metadata.name}</div>
-          <div className="amount">{formatUSD(item.result)}</div>
-        </a>
-      </Link>
+      <div
+        className="bundle-item"
+        style={{
+          backgroundImage: item.metadata.icon ? `url('${item.metadata.icon}')` : undefined,
+        }}
+      >
+        <div className="name">{item.metadata.name}</div>
+        <div className="amount">{formatUSD(item.result)}</div>
+      </div>
       <style jsx>{`
         .bundle-item {
           display: flex;

@@ -1,10 +1,10 @@
 import React, { Fragment, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import ReactGA from 'react-ga4';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import DetailsCard from './DetailsCard';
 import RowName from './RowName';
 import { formatUSD } from 'utils';
+import { usePlausible } from 'next-plausible';
 
 interface RowProps {
   protocol: any;
@@ -16,19 +16,19 @@ const toggle = (isOpen: boolean) => !isOpen;
 const cardHeight = 600;
 
 const L1Row: React.FC<RowProps> = ({ protocol, total }) => {
+  const plausible = usePlausible();
   const [open, setOpen] = useState(false);
 
   return (
     <Fragment>
-      <a
-        href={`/protocol/${protocol.id}`}
-        onClick={(e: any) => {
-          e.preventDefault();
+      <div
+        onClick={() => {
           setOpen(toggle);
-          ReactGA.event({
-            category: 'Navigation',
-            action: open ? 'Close details' : 'Open details',
-            label: protocol.name,
+
+          plausible(open ? 'close-details' : 'open-details', {
+            props: {
+              label: protocol.name,
+            },
           });
         }}
         className={`item ${total ? '' : 'app'} ${open ? 'open' : ''}`}
@@ -45,7 +45,7 @@ const L1Row: React.FC<RowProps> = ({ protocol, total }) => {
         </div>
         <div className="amount">{formatUSD(protocol.result)}</div>
         <div className="arrow">{open ? <ChevronUp /> : <ChevronDown />}</div>
-      </a>
+      </div>
 
       <CSSTransition in={open} timeout={500} unmountOnExit>
         <div className="details-container">
@@ -66,6 +66,7 @@ const L1Row: React.FC<RowProps> = ({ protocol, total }) => {
           text-decoration: none;
           align-items: center;
           height: 54px;
+          cursor: pointer;
         }
         .item:hover {
           background-color: #f5f5f5;

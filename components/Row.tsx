@@ -1,10 +1,10 @@
 import React, { Fragment, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import ReactGA from 'react-ga4';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import DetailsCard from './DetailsCard';
 import RowName from './RowName';
 import Flags from './Flags';
+import { usePlausible } from 'next-plausible';
 
 interface RowProps {
   protocol: any;
@@ -26,6 +26,7 @@ const format = (num?: number) =>
   '-';
 
 const Row: React.FC<RowProps> = ({ protocol, query }) => {
+  const plausible = usePlausible();
   const [open, setOpen] = useState(false);
 
   const isApp = protocol.metadata.category !== 'l1';
@@ -37,15 +38,14 @@ const Row: React.FC<RowProps> = ({ protocol, query }) => {
 
   return (
     <Fragment>
-      <a
-        href={`/protocol/${protocol.id}`}
-        onClick={(e: any) => {
-          e.preventDefault();
+      <div
+        onClick={() => {
           setOpen(toggle);
-          ReactGA.event({
-            category: 'Navigation',
-            action: open ? 'Close details' : 'Open details',
-            label: protocol.name,
+
+          plausible(open ? 'close-details' : 'open-details', {
+            props: {
+              label: protocol.name,
+            },
           });
         }}
         className={`item ${isApp ? 'app' : ''} ${open ? 'open' : ''}`}
@@ -64,7 +64,7 @@ const Row: React.FC<RowProps> = ({ protocol, query }) => {
         <div className="amount">{format(protocol.results.feeTransferEth)}</div>
         <div className="amount">{format(protocol.results.feeSwap)}</div>
         <div className="arrow">{open ? <ChevronUp /> : <ChevronDown />}</div>
-      </a>
+      </div>
 
       <CSSTransition in={open} timeout={500} unmountOnExit>
         <div className="details-container">
@@ -85,6 +85,7 @@ const Row: React.FC<RowProps> = ({ protocol, query }) => {
           text-decoration: none;
           align-items: center;
           height: 54px;
+          cursor: pointer;
         }
         .item:hover {
           background-color: #f5f5f5;
