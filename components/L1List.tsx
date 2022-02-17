@@ -10,7 +10,7 @@ const L1List: React.FC<ListProps> = ({ data }) => {
     .filter((protocol: any) => !!protocol.result)
     .sort((a: any, b: any) => b.result - a.result);
 
-  const total = data.reduce((total: number, row: any) => total + row.result, 0);
+  const total = data.reduce((total: number, row: any) => total + (row.result || 0), 0);
 
   return (
     <div className="list">
