@@ -103,7 +103,6 @@ const NUM_DAYS = 21;
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const collection = sdk.getCollection('rollup-l1-fees');
   await collection.fetchAdapters();
-  await collection.fetchAdapterFromIPFS('QmQsMH61Su9f9dgf6SLyWpANLFv4Tj4DkeGiFHyBSkjoHX');
 
   const dates: string[] = [];
   const yesterday = sdk.date.getYesterdayDate();
