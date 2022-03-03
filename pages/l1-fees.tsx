@@ -126,10 +126,11 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
     }, {}),
   }));
 
-  const dataWithMetadata = await collection.executeQueryWithMetadata(
+  const _dataWithMetadata = await collection.executeQueryWithMetadata(
     'oneDayFeesPaidUSD',
     yesterday
   );
+  const dataWithMetadata = _dataWithMetadata.filter((result) => result.result);
 
   const bundles: any = {};
   await Promise.all(
