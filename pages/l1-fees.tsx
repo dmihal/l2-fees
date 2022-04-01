@@ -3,7 +3,7 @@ import { NextPage, GetStaticProps } from 'next';
 import 'data/adapters';
 import sdk from 'data/sdk';
 import SocialTags from 'components/SocialTags';
-import ToggleBar from 'components/ToggleBar';
+import ToggleBar from 'components/ToggleNavBar';
 import L1List from 'components/L1List';
 import L1Chart from 'components/L1Chart';
 import { bundleItems } from 'utils';

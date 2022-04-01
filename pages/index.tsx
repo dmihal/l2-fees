@@ -4,7 +4,7 @@ import 'data/adapters';
 import sdk from 'data/sdk';
 import List from 'components/List';
 import SocialTags from 'components/SocialTags';
-import ToggleBar from 'components/ToggleBar';
+import ToggleBar from 'components/ToggleNavBar';
 
 interface HomeProps {
   data: any[];

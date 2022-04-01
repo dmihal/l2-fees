@@ -6,7 +6,7 @@ interface ToggleBarProps {
   options: { path: string; label: string }[];
 }
 
-const ToggleBar: React.FC<ToggleBarProps> = ({ options }) => {
+const ToggleNavBar: React.FC<ToggleBarProps> = ({ options }) => {
   const router = useRouter();
 
   return (
@@ -74,4 +74,4 @@ const ToggleBar: React.FC<ToggleBarProps> = ({ options }) => {
   );
 };
 
-export default ToggleBar;
+export default ToggleNavBar;
