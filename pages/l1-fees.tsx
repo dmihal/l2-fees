@@ -12,9 +12,10 @@ interface HomeProps {
   timeData: any[];
   dataWithMetadata: any[];
   bundles: any;
+  l2Percent: { date: string; percent: number }[];
 }
 
-export const Home: NextPage<HomeProps> = ({ timeData, dataWithMetadata, bundles }) => {
+export const Home: NextPage<HomeProps> = ({ timeData, dataWithMetadata, bundles, l2Percent }) => {
   const [percent, setPercent] = useState(false);
   const bundledData = (dataWithMetadata = bundleItems(dataWithMetadata, bundles));
 
@@ -40,7 +41,7 @@ export const Home: NextPage<HomeProps> = ({ timeData, dataWithMetadata, bundles 
         {' = ❤️'}
       </p>
 
-      <L1List data={bundledData} />
+      <L1List data={bundledData} percent={l2Percent[l2Percent.length - 1].percent} />
 
       <div className="chart-container">
         <L1Chart data={timeData} percent={percent} />
@@ -104,6 +105,10 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const collection = sdk.getCollection('rollup-l1-fees');
   await collection.fetchAdapters();
 
+  const feesCollection = sdk.getCollection('fees');
+  await feesCollection.fetchAdapters();
+  const ethFeesAdapter = feesCollection.getAdapter('eth');
+
   const dates: string[] = [];
   const yesterday = sdk.date.getYesterdayDate();
   for (let i = 0; i <= NUM_DAYS; i += 1) {
@@ -114,17 +119,33 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
     dates.map(async (date: string) => ({
       date,
       result: await collection.executeQuery('oneDayFeesPaidUSD', date),
+      total: await ethFeesAdapter.executeQuery('oneDayTotalFees', date),
     }))
   );
 
-  timeData = timeData.map((oneDay) => ({
-    date: oneDay.date,
-    ...oneDay.result.reduce((map: any, result) => {
+  const l2Percent = [];
+
+  timeData = timeData.map((oneDay) => {
+    let l2total = 0;
+
+    const transformedData = oneDay.result.reduce((map: any, result) => {
+      l2total += result.result || 0;
+
       const id = result.bundle || result.id;
       map[id] = (map[id] || 0) + (result.result || 0);
       return map;
-    }, {}),
-  }));
+    }, {});
+
+    l2Percent.push({
+      date: oneDay.date,
+      percent: l2total / oneDay.total,
+    });
+
+    return {
+      date: oneDay.date,
+      ...transformedData,
+    };
+  });
 
   const _dataWithMetadata = await collection.executeQueryWithMetadata(
     'oneDayFeesPaidUSD',
@@ -139,7 +160,7 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
     })
   );
 
-  return { props: { timeData, dataWithMetadata, bundles }, revalidate: 15 * 60 };
+  return { props: { timeData, l2Percent, dataWithMetadata, bundles }, revalidate: 15 * 60 };
 };
 
 export default Home;

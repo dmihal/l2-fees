@@ -42,3 +42,6 @@ export const formatUSD = (num?: number) =>
         style: 'currency',
         currency: 'USD',
       }));
+
+export const formatPercent = (num?: number) =>
+  num && num.toLocaleString('en-US', { style: 'percent', minimumFractionDigits: 1 });

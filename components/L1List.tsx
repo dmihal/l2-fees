@@ -3,9 +3,10 @@ import L1Row from './L1Row';
 
 interface ListProps {
   data: any[];
+  percent: number;
 }
 
-const L1List: React.FC<ListProps> = ({ data }) => {
+const L1List: React.FC<ListProps> = ({ data, percent }) => {
   const sortedData = data
     .filter((protocol: any) => !!protocol.result)
     .sort((a: any, b: any) => b.result - a.result);
@@ -23,6 +24,7 @@ const L1List: React.FC<ListProps> = ({ data }) => {
         <L1Row protocol={protocol} key={protocol.id} />
       ))}
       <L1Row total protocol={{ metadata: { name: 'Total' }, result: total }} />
+      <L1Row percent protocol={{ metadata: { name: 'Percent of Total' }, result: percent }} />
 
       <style jsx>{`
         .list {

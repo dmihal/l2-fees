@@ -3,19 +3,20 @@ import { CSSTransition } from 'react-transition-group';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import DetailsCard from './DetailsCard';
 import RowName from './RowName';
-import { formatUSD } from 'utils';
+import { formatUSD, formatPercent } from 'utils';
 import { usePlausible } from 'next-plausible';
 
 interface RowProps {
   protocol: any;
   total?: boolean;
+  percent?: boolean;
 }
 
 const toggle = (isOpen: boolean) => !isOpen;
 
 const cardHeight = 600;
 
-const L1Row: React.FC<RowProps> = ({ protocol, total }) => {
+const L1Row: React.FC<RowProps> = ({ protocol, total, percent }) => {
   const plausible = usePlausible();
   const [open, setOpen] = useState(false);
 
@@ -31,7 +32,7 @@ const L1Row: React.FC<RowProps> = ({ protocol, total }) => {
             },
           });
         }}
-        className={`item ${total ? '' : 'app'} ${open ? 'open' : ''}`}
+        className={`item ${total || percent ? '' : 'app'} ${open ? 'open' : ''}`}
         style={{
           backgroundImage: protocol.metadata.icon ? `url('${protocol.metadata.icon}')` : undefined,
         }}
@@ -43,13 +44,19 @@ const L1Row: React.FC<RowProps> = ({ protocol, total }) => {
             subtitle={protocol.metadata.subtitle}
           />
         </div>
-        <div className="amount">{formatUSD(protocol.result)}</div>
+        <div className="amount">
+          {percent ? formatPercent(protocol.result) : formatUSD(protocol.result)}
+        </div>
         <div className="arrow">{open ? <ChevronUp /> : <ChevronDown />}</div>
       </div>
 
       <CSSTransition in={open} timeout={500} unmountOnExit>
         <div className="details-container">
-          <DetailsCard protocol={protocol} />
+          {percent ? (
+            <div>Amount of fees paid by rollups as a percentage of all fees paid on Ethereum.</div>
+          ) : (
+            <DetailsCard protocol={protocol} />
+          )}
         </div>
       </CSSTransition>
       <style jsx>{`
