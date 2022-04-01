@@ -3,10 +3,11 @@ import { NextPage, GetStaticProps } from 'next';
 import 'data/adapters';
 import sdk from 'data/sdk';
 import SocialTags from 'components/SocialTags';
-import ToggleBar from 'components/ToggleNavBar';
+import ToggleNavBar from 'components/ToggleNavBar';
 import L1List from 'components/L1List';
 import L1Chart from 'components/L1Chart';
 import { bundleItems } from 'utils';
+import ToggleBar from 'components/ToggleBar';
 
 interface HomeProps {
   timeData: any[];
@@ -16,7 +17,7 @@ interface HomeProps {
 }
 
 export const Home: NextPage<HomeProps> = ({ timeData, dataWithMetadata, bundles, l2Percent }) => {
-  const [percent, setPercent] = useState(false);
+  const [chartTab, setChartTab] = useState('total');
   const bundledData = (dataWithMetadata = bundleItems(dataWithMetadata, bundles));
 
   return (
@@ -25,7 +26,7 @@ export const Home: NextPage<HomeProps> = ({ timeData, dataWithMetadata, bundles,
 
       <h1 className="title">L2 Fees</h1>
 
-      <ToggleBar
+      <ToggleNavBar
         options={[
           { path: '/', label: 'L2 Transaction Fees' },
           { path: '/l1-fees', label: 'Total L1 Security Costs' },
@@ -44,13 +45,23 @@ export const Home: NextPage<HomeProps> = ({ timeData, dataWithMetadata, bundles,
       <L1List data={bundledData} percent={l2Percent[l2Percent.length - 1].percent} />
 
       <div className="chart-container">
-        <L1Chart data={timeData} percent={percent} />
+        <L1Chart
+          data={chartTab === 'l1percent' ? l2Percent : timeData}
+          percent={chartTab === 'percent'}
+          formatPercent={chartTab !== 'total'}
+        />
       </div>
+
       <div>
-        <label>
-          <input type="checkbox" checked={percent} onChange={(e) => setPercent(e.target.checked)} />
-          Percent
-        </label>
+        <ToggleBar
+          options={[
+            { value: 'total', label: 'L2 Fees' },
+            { value: 'percent', label: 'L2 Percentage' },
+            { value: 'l1percent', label: 'Percent of total L1 fees' },
+          ]}
+          selected={chartTab}
+          onChange={(newTab) => setChartTab(newTab)}
+        />
       </div>
 
       <style jsx>{`

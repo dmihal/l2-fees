@@ -12,6 +12,7 @@ import {
 interface SeriesChartProps {
   data: any[];
   percent: boolean;
+  formatPercent?: boolean;
 }
 
 const protocols: { [id: string]: { name: string; color: string } } = {
@@ -53,12 +54,11 @@ const protocols: { [id: string]: { name: string; color: string } } = {
   },
 };
 
-const toDollars = (num: number) => '$' + Number(num.toFixed(0)).toLocaleString();
-
 const usdFormatter = (num: number) => '$' + Math.floor(num / 1000) + (num > 0 ? 'k' : '');
-const percentFormatter = (decimal: number) => `${(decimal * 100).toFixed(0)}%`;
+const percentFormatter = (decimal: number) =>
+  decimal.toLocaleString('en-US', { style: 'percent', maximumFractionDigits: 1 });
 
-const L1Chart: React.FC<SeriesChartProps> = ({ data, percent }) => {
+const L1Chart: React.FC<SeriesChartProps> = ({ data, percent, formatPercent }) => {
   const server = false;
   const Container: any = server ? 'div' : ResponsiveContainer;
 
@@ -71,7 +71,8 @@ const L1Chart: React.FC<SeriesChartProps> = ({ data, percent }) => {
     .sort(([, val1], [, val2]) => (val2 as number) - (val1 as number))
     .map(([key]) => key);
 
-  const yFormatter = percent ? percentFormatter : usdFormatter;
+  const yFormatter = formatPercent ? percentFormatter : usdFormatter;
+  const tooltipFormatter = formatPercent && !percent ? percentFormatter : usdFormatter;
 
   return (
     <Container height={300}>
@@ -86,7 +87,7 @@ const L1Chart: React.FC<SeriesChartProps> = ({ data, percent }) => {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="date" />
         <YAxis tickFormatter={yFormatter} />
-        <Tooltip formatter={toDollars} />
+        <Tooltip formatter={tooltipFormatter} />
 
         {keysInOrder.map((id) =>
           id === 'date' ? null : (
