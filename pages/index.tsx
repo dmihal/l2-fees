@@ -1,23 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NextPage, GetStaticProps } from 'next';
 import 'data/adapters';
 import sdk from 'data/sdk';
 import List from 'components/List';
 import SocialTags from 'components/SocialTags';
-import ToggleBar from 'components/ToggleNavBar';
+import ToggleNavBar from 'components/ToggleNavBar';
+import ToggleBar from 'components/ToggleBar';
 
 interface HomeProps {
   data: any[];
 }
 
 export const Home: NextPage<HomeProps> = ({ data }) => {
+  const [mode, setMode] = useState('rollups')
+
+  let _data = mode === 'rollups' ? data.filter(item => item.id !== 'metisnetwork') : data
+
   return (
     <main>
       <SocialTags />
 
       <h1 className="title">L2 Fees</h1>
 
-      <ToggleBar
+      <ToggleNavBar
         options={[
           { path: '/', label: 'L2 Transaction Fees' },
           { path: '/l1-fees', label: 'Total L1 Security Costs' },
@@ -37,7 +42,19 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
         {' = ❤️'}
       </p>
 
-      <List data={data} />
+      <div className="toolbar">
+        <ToggleBar
+          options={[
+            { value: 'rollups', label: 'Rollups' },
+            { value: 'l2s', label: 'All L2s' },
+          ]}
+          small
+          selected={mode}
+          onChange={(newMode) => setMode(newMode)}
+        />
+      </div>
+
+      <List data={_data} />
 
       <style jsx>{`
         main {
@@ -74,13 +91,20 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
           font-size: 18px;
           font-style: italic;
         }
+
+        .toolbar {
+          max-width: 600px;
+          width: 100%;
+          display: flex;
+          justify-content: flex-end;
+        }
       `}</style>
     </main>
   );
 };
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  const list = sdk.getList('l2-fees');
+  const list = sdk.getCollection('l2-fees');
   await list.fetchAdapters();
 
   const data = await list.executeQueriesWithMetadata(

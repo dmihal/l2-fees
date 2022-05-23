@@ -3,12 +3,13 @@ import React from 'react';
 interface ToggleBarProps {
   options: { value: string; label: string }[];
   selected: string;
+  small?: boolean;
   onChange: (newSelection: string) => void;
 }
 
-const ToggleBar: React.FC<ToggleBarProps> = ({ options, selected, onChange }) => {
+const ToggleBar: React.FC<ToggleBarProps> = ({ options, selected, onChange, small }) => {
   return (
-    <ul className="bar">
+    <ul className={`bar ${small ? 'small' : ''}`}>
       {options.map((option) => (
         <li
           key={option.value}
@@ -23,6 +24,10 @@ const ToggleBar: React.FC<ToggleBarProps> = ({ options, selected, onChange }) =>
         .bar {
           display: flex;
           padding: 0;
+          margin: 0;
+        }
+        .small li {
+          font-size: 14px;
         }
         li {
           padding: 6px;
