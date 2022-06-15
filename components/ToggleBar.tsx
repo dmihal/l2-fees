@@ -41,6 +41,7 @@ const ToggleBar: React.FC<ToggleBarProps> = ({ options, selected, onChange, smal
         li:first-child {
           border-top-left-radius: 6px;
           border-bottom-left-radius: 6px;
+          cursor: pointer;
         }
         li:last-child {
           border-top-right-radius: 6px;
@@ -50,6 +51,7 @@ const ToggleBar: React.FC<ToggleBarProps> = ({ options, selected, onChange, smal
         li.selected {
           background: white;
           color: #091636;
+          cursor: default;
         }
       `}</style>
     </ul>

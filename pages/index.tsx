@@ -12,9 +12,9 @@ interface HomeProps {
 }
 
 export const Home: NextPage<HomeProps> = ({ data }) => {
-  const [mode, setMode] = useState('rollups')
+  const [mode, setMode] = useState('rollups');
 
-  let _data = mode === 'rollups' ? data.filter(item => item.id !== 'metisnetwork') : data
+  const _data = mode === 'rollups' ? data.filter((item) => item.id !== 'metisnetwork') : data;
 
   return (
     <main>
