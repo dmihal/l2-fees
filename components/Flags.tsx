@@ -1,5 +1,5 @@
 import React from 'react';
-import { Info } from 'react-feather';
+import { Info, AlertTriangle } from 'lucide-react';
 import incognito from './icons/incognito.svg';
 import speedometer from './icons/speedometer.svg';
 
@@ -21,6 +21,7 @@ const makeIcon = (image: string): React.FC => () => (
 const icons: { [id: string]: React.ComponentType<any> } = {
   throtle: makeIcon(speedometer),
   info: Info,
+  warning: AlertTriangle,
   private: makeIcon(incognito),
 };
 

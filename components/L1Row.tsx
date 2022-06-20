@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { ChevronDown, ChevronUp } from 'react-feather';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import DetailsCard from './DetailsCard';
 import RowName from './RowName';
 import { formatUSD, formatPercent } from 'utils';

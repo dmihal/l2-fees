@@ -12,9 +12,10 @@ interface HomeProps {
 }
 
 export const Home: NextPage<HomeProps> = ({ data }) => {
-  const [mode, setMode] = useState('rollups');
+  const [mode, setMode] = useState('l2s');
 
-  const _data = mode === 'rollups' ? data.filter((item) => item.id !== 'metisnetwork') : data;
+  let _data = mode === 'rollups' ? data.filter((item) => item.id !== 'metisnetwork') : data;
+  _data = _data.map((item) => item.id === 'metisnetwork' ? { ...item, offchainDA: true } : item)
 
   return (
     <main>
@@ -45,8 +46,8 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
       <div className="toolbar">
         <ToggleBar
           options={[
-            { value: 'rollups', label: 'Rollups' },
             { value: 'l2s', label: 'All L2s' },
+            { value: 'rollups', label: 'Full Rollups' },
           ]}
           small
           selected={mode}

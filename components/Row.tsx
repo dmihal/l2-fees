@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { ChevronDown, ChevronUp } from 'react-feather';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import DetailsCard from './DetailsCard';
 import RowName from './RowName';
 import Flags from './Flags';
@@ -30,11 +30,23 @@ const Row: React.FC<RowProps> = ({ protocol, query }) => {
   const [open, setOpen] = useState(false);
 
   const isApp = protocol.metadata.category !== 'l1';
+  const isNotRollup = !!protocol.offchainDA;
 
   const flags = {
     ...protocol.metadata.flags,
     ...(protocol.metadata.flagsByQuery || {})[query],
   };
+
+  const classes = ['item'];
+  if (isApp) {
+    classes.push('app');
+  }
+  if (open) {
+    classes.push('open');
+  }
+  if (isNotRollup) {
+    classes.push('not-rollup');
+  }
 
   return (
     <Fragment>
@@ -48,7 +60,7 @@ const Row: React.FC<RowProps> = ({ protocol, query }) => {
             },
           });
         }}
-        className={`item ${isApp ? 'app' : ''} ${open ? 'open' : ''}`}
+        className={classes.join(' ')}
         style={{
           backgroundImage: protocol.metadata.icon ? `url('${protocol.metadata.icon}')` : undefined,
         }}
@@ -96,6 +108,10 @@ const Row: React.FC<RowProps> = ({ protocol, query }) => {
         }
         .item.app:hover {
           background-color: #f8c3f3;
+        }
+        .item.not-rollup {
+          background-color: #ede8ec;
+          color: gray;
         }
 
         .row-name {
