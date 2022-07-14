@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { NextPage, GetStaticProps } from 'next';
-import 'data/adapters';
 import sdk from 'data/sdk';
 import SocialTags from 'components/SocialTags';
 import ToggleNavBar from 'components/ToggleNavBar';

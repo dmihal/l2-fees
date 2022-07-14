@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { NextPage, GetStaticProps } from 'next';
-import 'data/adapters';
 import sdk from 'data/sdk';
 import List from 'components/List';
 import SocialTags from 'components/SocialTags';
@@ -15,7 +14,7 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
   const [mode, setMode] = useState('l2s');
 
   let _data = mode === 'rollups' ? data.filter((item) => item.id !== 'metisnetwork') : data;
-  _data = _data.map((item) => item.id === 'metisnetwork' ? { ...item, offchainDA: true } : item)
+  _data = _data.map((item) => (item.id === 'metisnetwork' ? { ...item, offchainDA: true } : item));
 
   return (
     <main>
