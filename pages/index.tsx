@@ -5,13 +5,14 @@ import List from 'components/List';
 import SocialTags from 'components/SocialTags';
 import ToggleNavBar from 'components/ToggleNavBar';
 import ToggleBar from 'components/ToggleBar';
-import { ResultsWithMetadata } from '@cryptostats/sdk';
+import AverageFeeChart from 'components/AverageFeeChart';
 
 interface HomeProps {
   data: any[];
+  historicData: any[];
 }
 
-export const Home: NextPage<HomeProps> = ({ data }) => {
+export const Home: NextPage<HomeProps> = ({ data, historicData }) => {
   const [mode, setMode] = useState('l2s');
 
   let _data = mode === 'rollups' ? data.filter((item) => item.id !== 'metisnetwork') : data;
@@ -56,6 +57,8 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
       </div>
 
       <List data={_data} />
+
+      <AverageFeeChart data={historicData} />
 
       <style jsx>{`
         main {
@@ -105,41 +108,43 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
 };
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  const list = sdk.getCollection('l2-fees');
+  const collection = sdk.getCollection('l2-fees');
   const l1Adapters = sdk.getCollection('l1-fees');
-  await list.fetchAdapters();
-  await l1Adapters.fetchAdapters();
-
-  const ethAdapter = l1Adapters.getAdapter('ethereum');
-
-  const l2Data = await list.executeQueriesWithMetadata(
-    ['feeTransferEth', 'feeTransferERC20', 'feeSwap'],
-    { allowMissingQuery: true }
-  );
-
-  const [metadata, xferFee, swapFee] = await Promise.all([
-    ethAdapter.getMetadata(),
-    ethAdapter.query('feeTransferEth'),
-    ethAdapter.query('feeSwap'),
+  const historicFeeCollection = sdk.getCollection('historic-l2-fees');
+  await Promise.all([
+    collection.fetchAdapters(),
+    l1Adapters.fetchAdapters(),
+    historicFeeCollection.fetchAdapters(),
   ]);
 
-  const results = {
-    feeTransferEth: xferFee,
-    swapFee: swapFee,
-  };
-  const errors = {};
+  const ethAdapter = l1Adapters.getAdapter('ethereum');
+  if (!collection.getAdapter('ethereum')) {
+    collection.addAdapter(ethAdapter);
+  }
+  if (!historicFeeCollection.getAdapter('ethereum')) {
+    historicFeeCollection.addAdapter(ethAdapter);
+  }
 
-  const l1Data = {
-    id: 'ethereum',
-    bundle: null,
-    results,
-    errors,
-    metadata,
-  };
+  // const dateRange = sdk.date.getDateRange('2021-09-01', sdk.date.formatDate(new Date()));
+  const dateRange = sdk.date.getDateRange('2022-06-01', sdk.date.formatDate(new Date()));
 
-  const data: ResultsWithMetadata[] = [...l2Data, l1Data];
+  const [data, historicData] = await Promise.all([
+    collection.executeQueriesWithMetadata(
+      ['feeTransferEth', 'feeTransferERC20', 'feeSwap'],
+      { allowMissingQuery: true }
+    ),
+    Promise.all(dateRange.map(async date => {
+      const dayData = await historicFeeCollection.executeQuery('oneDayAverageFeeSwap', date);
 
-  return { props: { data }, revalidate: 5 * 60 };
+      const result: any = { date: sdk.date.dateToTimestamp(date) };
+      for (const protocol of dayData) {
+        result[protocol.id] = protocol.result;
+      }
+      return result;
+    })),
+  ]);
+
+  return { props: { data, historicData }, revalidate: 5 * 60 };
 };
 
 export default Home;
