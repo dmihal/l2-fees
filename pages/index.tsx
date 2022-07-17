@@ -5,12 +5,14 @@ import List from 'components/List';
 import SocialTags from 'components/SocialTags';
 import ToggleNavBar from 'components/ToggleNavBar';
 import ToggleBar from 'components/ToggleBar';
+import AverageFeeChart from 'components/AverageFeeChart';
 
 interface HomeProps {
   data: any[];
+  historicData: any[];
 }
 
-export const Home: NextPage<HomeProps> = ({ data }) => {
+export const Home: NextPage<HomeProps> = ({ data, historicData }) => {
   const [mode, setMode] = useState('l2s');
 
   let _data = mode === 'rollups' ? data.filter((item) => item.id !== 'metisnetwork') : data;
@@ -55,6 +57,8 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
       </div>
 
       <List data={_data} />
+
+      <AverageFeeChart data={historicData} />
 
       <style jsx>{`
         main {
@@ -106,18 +110,41 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const collection = sdk.getCollection('l2-fees');
   const l1Adapters = sdk.getCollection('l1-fees');
-  await collection.fetchAdapters();
-  await l1Adapters.fetchAdapters();
+  const historicFeeCollection = sdk.getCollection('historic-l2-fees');
+  await Promise.all([
+    collection.fetchAdapters(),
+    l1Adapters.fetchAdapters(),
+    historicFeeCollection.fetchAdapters(),
+  ]);
 
   const ethAdapter = l1Adapters.getAdapter('ethereum');
-  collection.addAdapter(ethAdapter);
+  if (!collection.getAdapter('ethereum')) {
+    collection.addAdapter(ethAdapter);
+  }
+  if (!historicFeeCollection.getAdapter('ethereum')) {
+    historicFeeCollection.addAdapter(ethAdapter);
+  }
 
-  const data = await collection.executeQueriesWithMetadata(
-    ['feeTransferEth', 'feeTransferERC20', 'feeSwap'],
-    { allowMissingQuery: true }
-  );
+  // const dateRange = sdk.date.getDateRange('2021-09-01', sdk.date.formatDate(new Date()));
+  const dateRange = sdk.date.getDateRange('2022-06-01', sdk.date.formatDate(new Date()));
 
-  return { props: { data }, revalidate: 5 * 60 };
+  const [data, historicData] = await Promise.all([
+    collection.executeQueriesWithMetadata(
+      ['feeTransferEth', 'feeTransferERC20', 'feeSwap'],
+      { allowMissingQuery: true }
+    ),
+    Promise.all(dateRange.map(async date => {
+      const dayData = await historicFeeCollection.executeQuery('oneDayAverageFeeSwap', date);
+
+      const result: any = { date: sdk.date.dateToTimestamp(date) };
+      for (const protocol of dayData) {
+        result[protocol.id] = protocol.result;
+      }
+      return result;
+    })),
+  ]);
+
+  return { props: { data, historicData }, revalidate: 5 * 60 };
 };
 
 export default Home;
