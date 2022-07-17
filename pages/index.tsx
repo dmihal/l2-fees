@@ -5,7 +5,6 @@ import List from 'components/List';
 import SocialTags from 'components/SocialTags';
 import ToggleNavBar from 'components/ToggleNavBar';
 import ToggleBar from 'components/ToggleBar';
-import { ResultsWithMetadata } from '@cryptostats/sdk';
 
 interface HomeProps {
   data: any[];
@@ -105,39 +104,18 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
 };
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  const list = sdk.getCollection('l2-fees');
+  const collection = sdk.getCollection('l2-fees');
   const l1Adapters = sdk.getCollection('l1-fees');
-  await list.fetchAdapters();
+  await collection.fetchAdapters();
   await l1Adapters.fetchAdapters();
 
   const ethAdapter = l1Adapters.getAdapter('ethereum');
+  collection.addAdapter(ethAdapter);
 
-  const l2Data = await list.executeQueriesWithMetadata(
+  const data = await collection.executeQueriesWithMetadata(
     ['feeTransferEth', 'feeTransferERC20', 'feeSwap'],
     { allowMissingQuery: true }
   );
-
-  const [metadata, xferFee, swapFee] = await Promise.all([
-    ethAdapter.getMetadata(),
-    ethAdapter.query('feeTransferEth'),
-    ethAdapter.query('feeSwap'),
-  ]);
-
-  const results = {
-    feeTransferEth: xferFee,
-    swapFee: swapFee,
-  };
-  const errors = {};
-
-  const l1Data = {
-    id: 'ethereum',
-    bundle: null,
-    results,
-    errors,
-    metadata,
-  };
-
-  const data: ResultsWithMetadata[] = [...l2Data, l1Data];
 
   return { props: { data }, revalidate: 5 * 60 };
 };
