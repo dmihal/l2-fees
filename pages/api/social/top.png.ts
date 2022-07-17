@@ -4,7 +4,6 @@ import ReactDOMServer from 'react-dom/server';
 import React from 'react';
 import path from 'path';
 import SocialCard from 'components/SocialCard';
-import 'data/adapters';
 import sdk from 'data/sdk';
 
 // These statements causes Next to bundle these files
