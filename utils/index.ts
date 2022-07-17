@@ -17,7 +17,7 @@ export const bundleItems = (data: any[], bundles: any) => {
 
         for (const bundleItem of bundleItems) {
           _data.splice(_data.indexOf(bundleItem), 1);
-          result += bundleItem.result;
+          result += bundleItem.result || 0;
         }
 
         _data.push({
