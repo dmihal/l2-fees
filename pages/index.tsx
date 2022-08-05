@@ -106,11 +106,16 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const collection = sdk.getCollection('l2-fees');
   const l1Adapters = sdk.getCollection('l1-fees');
-  await collection.fetchAdapters();
-  await l1Adapters.fetchAdapters();
 
-  const ethAdapter = l1Adapters.getAdapter('ethereum');
-  collection.addAdapter(ethAdapter);
+  // This if statement shouldn't be necessary, but for some reason, Next calls getStaticProps twice :(
+  // Spent way too long debugging that, so I'll just add this if statement for now
+  if (!collection.getAdapter('ethereum')) {
+    await collection.fetchAdapters();
+    await l1Adapters.fetchAdapters();
+
+    const ethAdapter = l1Adapters.getAdapter('ethereum');
+    collection.addAdapter(ethAdapter);
+  }
 
   const data = await collection.executeQueriesWithMetadata(
     ['feeTransferEth', 'feeTransferERC20', 'feeSwap'],
