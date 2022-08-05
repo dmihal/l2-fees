@@ -104,6 +104,8 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
 };
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+  const stack = new Error().stack
+  console.trace('Evaluating' + stack);
   const collection = sdk.getCollection('l2-fees');
   const l1Adapters = sdk.getCollection('l1-fees');
   await collection.fetchAdapters();
@@ -117,7 +119,7 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
     { allowMissingQuery: true }
   );
 
-  return { props: { data }, revalidate: 5 * 60 };
+  return { props: { data }, revalidate: 10 };
 };
 
 export default Home;
