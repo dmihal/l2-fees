@@ -30,7 +30,7 @@
     "@popperjs/core": "^2.9.2",
     "@types/react-transition-group": "^4.4.0",
     "lucide-react": "^0.68.0",
-    "next": "^10.0.9",
+    "next": "^12.2.5",
     "next-images": "^1.4.1",
     "next-plausible": "2.1.2-beta.0",
     "react": "^18.2.0",
