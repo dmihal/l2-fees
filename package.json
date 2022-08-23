@@ -29,9 +29,11 @@
     "@cryptostats/sdk": "^0.2.12",
     "@popperjs/core": "^2.9.2",
     "@types/react-transition-group": "^4.4.0",
+    "gray-matter": "^4.0.3",
     "lucide-react": "^0.68.0",
     "next": "^12.2.5",
     "next-images": "^1.4.1",
+    "next-mdx-remote": "^4.1.0",
     "next-plausible": "2.1.2-beta.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -40,6 +42,7 @@
     "react-select": "^4.3.0",
     "react-transition-group": "^4.4.1",
     "recharts": "^2.1.9",
+    "remark-frontmatter": "^4.0.1",
     "sharp": "^0.28.1"
   },
   "devDependencies": {
