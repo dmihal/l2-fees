@@ -4,6 +4,7 @@ import SocialTags from 'components/SocialTags';
 import { BlogPostWithSource, getBlogPost, getBlogPostList } from 'utils/blog';
 import Link from 'next/link';
 import { MDXRemote } from 'next-mdx-remote';
+import { Tweet } from 'mdx-embed';
 
 interface BlogProps {
   post: BlogPostWithSource;
@@ -12,7 +13,12 @@ interface BlogProps {
 export const Blog: NextPage<BlogProps> = ({ post }) => {
   return (
     <main>
-      <SocialTags />
+      <SocialTags
+        title={post.title}
+        article={{
+          publishedTime: new Date(post.date),
+        }}
+      />
 
       <div className="subtitle">L2Fees Blog</div>
       <div>
@@ -22,7 +28,12 @@ export const Blog: NextPage<BlogProps> = ({ post }) => {
       </div>
       <h1 className="title">{post.title}</h1>
 
-      <MDXRemote {...post.contentSource} />
+      <MDXRemote
+        components={{
+          Tweet,
+        }}
+        {...post.contentSource}
+      />
 
       <style jsx>{`
         main {
