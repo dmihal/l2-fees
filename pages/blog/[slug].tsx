@@ -10,6 +10,10 @@ interface BlogProps {
   post: BlogPostWithSource;
 }
 
+const components = {
+  Tweet,
+};
+
 export const Blog: NextPage<BlogProps> = ({ post }) => {
   return (
     <main>
@@ -28,12 +32,7 @@ export const Blog: NextPage<BlogProps> = ({ post }) => {
       </div>
       <h1 className="title">{post.title}</h1>
 
-      <MDXRemote
-        components={{
-          Tweet,
-        }}
-        {...post.contentSource}
-      />
+      <MDXRemote components={components as any} {...post.contentSource} />
 
       <style jsx>{`
         main {

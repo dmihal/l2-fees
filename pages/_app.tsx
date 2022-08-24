@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import PlausibleProvider from 'next-plausible';
 import { useRouter } from 'next/router';
@@ -19,16 +18,6 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
 
   return (
     <div className="container">
-      <Head>
-        <link rel="icon" href="/favicon.png" />
-        <link href="https://use.typekit.net/jrq0bbf.css" rel="stylesheet" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&amp;display=swap"
-          rel="stylesheet"
-        />
-      </Head>
-
       <PlausibleProvider domain="l2fees.info">
         <Header />
 
