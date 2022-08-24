@@ -4,9 +4,10 @@ import { usePopper } from 'react-popper';
 interface AttributeProps {
   title: string;
   tooltip?: string;
+  children: React.ReactNode;
 }
 
-const Attribute: React.FC<AttributeProps> = ({ title, children, tooltip }) => {
+export default function Attribute({ title, children, tooltip }: AttributeProps) {
   const [showTooltip, setShowTooltip] = useState(false);
   const target = useRef(null);
   const tooltipEl = useRef(null);
@@ -90,6 +91,4 @@ const Attribute: React.FC<AttributeProps> = ({ title, children, tooltip }) => {
       `}</style>
     </div>
   );
-};
-
-export default Attribute;
+}
