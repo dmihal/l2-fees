@@ -35,13 +35,6 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
         How much does it cost to use Layer-2?
       </p>
 
-      <p className="heart">
-        <a href="https://cryptofees.info">CryptoFees.info</a>
-        {' + '}
-        <a href="https://l2beat.com">L2Beat.com</a>
-        {' = ❤️'}
-      </p>
-
       <div className="toolbar">
         <ToggleBar
           options={[
@@ -55,6 +48,12 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
       </div>
 
       <List data={_data} />
+
+      <div>
+        Want to better understand Ethereum&apos;s layer-2 ecosystem? Visit our {}
+        friends at <a href="https://l2beat.com">L2Beat.com</a> to learn more {}
+        about the various scaling solutions and their risk assumptions.
+      </div>
 
       <style jsx>{`
         main {
@@ -84,12 +83,6 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
           line-height: 1.5;
           font-size: 1.5rem;
           margin: 4px 0 20px;
-        }
-
-        .heart {
-          margin: 0 0 18px 0;
-          font-size: 18px;
-          font-style: italic;
         }
 
         .toolbar {
