@@ -1,10 +1,11 @@
 import React from 'react';
 import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
-import SocialTags from 'components/SocialTags';
-import { BlogPostWithSource, getBlogPost, getBlogPostList } from 'utils/blog';
 import Link from 'next/link';
 import { MDXRemote } from 'next-mdx-remote';
 import { Tweet } from 'mdx-embed';
+import dynamic from 'next/dynamic';
+import SocialTags from 'components/SocialTags';
+import { BlogPostWithSource, getBlogPost, getBlogPostList } from 'utils/blog';
 
 interface BlogProps {
   post: BlogPostWithSource;
@@ -12,6 +13,7 @@ interface BlogProps {
 
 const components = {
   Tweet,
+  LightXfer: dynamic(() => import('components/blog-widgets/LightXfer')),
 };
 
 export const Blog: NextPage<BlogProps> = ({ post }) => {
