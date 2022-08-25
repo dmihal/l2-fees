@@ -25,6 +25,7 @@ export const Blog: NextPage<BlogProps> = ({ post }) => {
     <main>
       <SocialTags
         title={post.title}
+        description={post.metadata.tagline}
         article={{
           publishedTime: new Date(post.date),
         }}

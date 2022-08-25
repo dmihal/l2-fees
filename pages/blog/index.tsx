@@ -11,15 +11,30 @@ interface BlogProps {
 export const Blog: NextPage<BlogProps> = ({ posts }) => {
   return (
     <main>
-      <SocialTags />
+      <SocialTags title="Blog - L2Fees.info" />
 
       <h1 className="title">L2Fees Blog</h1>
+      <div className="nav-links">
+        <Link href="/">
+          <a>Home</a>
+        </Link>
+      </div>
 
-      <ul>
+      <ul className="posts">
         {posts.map((post) => (
           <li key={post.slug}>
             <Link href={`/blog/${post.slug}`}>
-              <a>{post.title}</a>
+              <a>
+                <div className="link-title">{post.title}</div>
+                <div className="link-tagline">{post.metadata.tagline}</div>
+                <div className="link-date">
+                  {new Date(post.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </div>
+              </a>
             </Link>
           </li>
         ))}
@@ -43,29 +58,46 @@ export const Blog: NextPage<BlogProps> = ({ posts }) => {
           font-weight: 700;
         }
 
-        .title,
-        .description {
-          text-align: center;
-          max-width: 800px;
-        }
-
-        .description {
-          line-height: 1.5;
-          font-size: 1.5rem;
-          margin: 4px 0 20px;
-        }
-
-        .heart {
-          margin: 0 0 18px 0;
-          font-size: 18px;
-          font-style: italic;
-        }
-
-        .toolbar {
-          max-width: 600px;
-          width: 100%;
+        .posts {
           display: flex;
+          padding: 0;
+        }
+
+        .posts li {
+          list-style: none;
+          margin: 8px;
+        }
+
+        .posts a {
+          display: block;
+          width: 400px;
+          height: 200px;
+          border: solid 1px black;
+          border-radius: 4px;
+          box-sizing: border-box;
+          padding: 8px;
+          display: flex;
+          flex-direction: column;
           justify-content: flex-end;
+          text-decoration: none;
+        }
+
+        .link-title {
+          font-weight: bold;
+          font-size: 18px;
+        }
+        .link-date {
+          color: #555;
+          font-size: 14px;
+        }
+
+        .nav-links,
+        .nav-links a {
+          font-size: 14px;
+          color: #555;
+        }
+        .nav-links a:hover {
+          color: #999;
         }
       `}</style>
     </main>
