@@ -23,7 +23,9 @@ export default function SocialTags({
   article,
 }: SocialTagProps) {
   const _image = image || `/api/social/top.png?${new Date().getDate()}`;
-  const fullImage = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/${_image}`;
+  const fullImage = _image.includes('https://')
+    ? _image
+    : `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/${_image}`;
 
   return (
     <Head>
@@ -50,7 +52,7 @@ export default function SocialTags({
           {article.modifiedTime && (
             <meta name="article:modified_time" content={article.modifiedTime.toISOString()} />
           )}
-          {article.author && <meta name="article:modified_time" content={article.author} />}
+          {article.author && <meta name="article:author" content={article.author} />}
           {article.section && <meta name="article:section" content={article.section} />}
           {article.tag &&
             article.tag.map((tag) => <meta name="article:tag" content={tag} key={tag} />)}
