@@ -24,7 +24,11 @@ export const Blog: NextPage<BlogProps> = ({ posts }) => {
         {posts.map((post) => (
           <li key={post.slug}>
             <Link href={`/blog/${post.slug}`}>
-              <a>
+              <a
+                style={{
+                  backgroundImage: post.metadata.image ? `url(${post.metadata.image})` : '',
+                }}
+              >
                 <div className="link-title">{post.title}</div>
                 <div className="link-tagline">{post.metadata.tagline}</div>
                 <div className="link-date">
@@ -80,6 +84,29 @@ export const Blog: NextPage<BlogProps> = ({ posts }) => {
           flex-direction: column;
           justify-content: flex-end;
           text-decoration: none;
+          background-position: center;
+          background-size: 100%;
+          position: relative;
+          transition: background-size 0.2s;
+        }
+        .posts a:before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0.4;
+          background: #eeeeee;
+          z-index: 0;
+        }
+        .posts a:hover {
+          content: '';
+          background-size: 110%;
+          color: black;
+        }
+        .posts * {
+          z-index: 1;
         }
 
         .link-title {

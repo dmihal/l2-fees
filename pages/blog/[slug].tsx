@@ -25,8 +25,10 @@ export const Blog: NextPage<BlogProps> = ({ post }) => {
       <SocialTags
         title={post.title}
         description={post.metadata.tagline}
+        image={post.metadata.image}
         article={{
           publishedTime: new Date(post.date),
+          author: post.metadata.authorLink,
         }}
       />
 
@@ -121,6 +123,10 @@ export const Blog: NextPage<BlogProps> = ({ post }) => {
         }
         article :global(hr) {
           margin: 32px 0;
+        }
+
+        article :global(iframe) {
+          border: none;
         }
       `}</style>
     </main>
