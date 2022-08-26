@@ -2,7 +2,6 @@ import React from 'react';
 import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 import Link from 'next/link';
 import { MDXRemote } from 'next-mdx-remote';
-import { Tweet } from 'mdx-embed';
 import dynamic from 'next/dynamic';
 import SocialTags from 'components/SocialTags';
 import { BlogPostWithSource, getBlogPost, getBlogPostList } from 'utils/blog';
@@ -16,7 +15,7 @@ const components = {
   h2: ({ children }: { children: string }) => (
     <h2 id={children.toLowerCase().replaceAll(' ', '-')}>{children}</h2>
   ),
-  Tweet,
+  Tweet: dynamic(() => import('react-twitter-embed').then((pkg) => pkg.TwitterTweetEmbed)),
   LightXfer: dynamic(() => import('components/blog-widgets/LightXfer')),
 };
 

@@ -34,7 +34,6 @@
     "ethers": "^5.7.0",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.68.0",
-    "mdx-embed": "^1.0.0",
     "next": "^12.2.5",
     "next-mdx-remote": "^3.0.8",
     "next-plausible": "2.1.2-beta.0",
@@ -44,6 +43,7 @@
     "react-popper": "^2.2.5",
     "react-select": "^4.3.0",
     "react-transition-group": "^4.4.1",
+    "react-twitter-embed": "^4.0.4",
     "recharts": "^2.1.9",
     "remark-frontmatter": "^4.0.1",
     "sharp": "^0.28.1"
