@@ -13,7 +13,17 @@ interface BlogProps {
 const components = {
   h1: () => null,
   h2: ({ children }: { children: string }) => (
-    <h2 id={children.toLowerCase().replaceAll(' ', '-')}>{children}</h2>
+    <h2 id={children.toLowerCase().replaceAll(/\W+/g, '-')}>{children}</h2>
+  ),
+  Img: ({ src }: { src: string }) => (
+    <>
+      <img className="blog-img" src={`https://blog-assets.cryptofees.info/${src}`} />
+      <style jsx>{`
+        .blog-img {
+          width: 100%;
+        }
+      `}</style>
+    </>
   ),
   Tweet: dynamic(() => import('react-twitter-embed').then((pkg) => pkg.TwitterTweetEmbed)),
   LightXfer: dynamic(() => import('components/blog-widgets/LightXfer')),
