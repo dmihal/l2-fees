@@ -114,6 +114,7 @@ export const Blog: NextPage<BlogProps> = ({ post }) => {
 
         article {
           margin: 24px 0;
+          overflow: hidden;
         }
         article :global(h2) {
           margin: 16px 0 4px;
