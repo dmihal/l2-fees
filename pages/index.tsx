@@ -5,6 +5,7 @@ import List from 'components/List';
 import SocialTags from 'components/SocialTags';
 import ToggleNavBar from 'components/ToggleNavBar';
 import ToggleBar from 'components/ToggleBar';
+import Link from 'next/link';
 
 interface HomeProps {
   data: any[];
@@ -35,6 +36,16 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
         How much does it cost to use Layer-2?
       </p>
 
+      <div className="blog">
+        How can rollups reduce their fees?
+        <br />
+        Read our first blog-post &ldquo;
+        <Link href="/blog/rollup-calldata-compression">
+          <a>Crunching the Calldata</a>
+        </Link>
+        &rdquo;.
+      </div>
+
       <div className="toolbar">
         <ToggleBar
           options={[
@@ -49,10 +60,11 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
 
       <List data={_data} />
 
-      <div>
-        Want to better understand Ethereum&apos;s layer-2 ecosystem? Visit our {}
-        friends at <a href="https://l2beat.com">L2Beat.com</a> to learn more {}
-        about the various scaling solutions and their risk assumptions.
+      <div className="l2beat">
+        Want to better understand Ethereum&apos;s layer-2 ecosystem?
+        <br />
+        Visit our friends at <a href="https://l2beat.com">L2Beat.com</a> to learn more {}
+        about scaling solutions and their risk assumptions.
       </div>
 
       <style jsx>{`
@@ -90,6 +102,18 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
           width: 100%;
           display: flex;
           justify-content: flex-end;
+        }
+
+        .blog {
+          text-align: center;
+          margin-bottom: 14px;
+          font-style: italic;
+        }
+
+        .l2beat {
+          max-width: 600px;
+          margin: 4px 8px;
+          text-align: center;
         }
       `}</style>
     </main>
