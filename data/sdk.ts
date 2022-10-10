@@ -4,6 +4,7 @@ const sdk = new CryptoStatsSDK({
   etherscanKey: process.env.ETHERSCAN_KEY,
   mongoConnectionString: process.env.MONGO_CONNECTION_STRING,
   redisConnectionString: process.env.REDIS_URL,
+  executionTimeout: process.env.EXECUTION_TIMEOUT ? parseInt(process.env.EXECUTION_TIMEOUT) : 60,
 });
 
 sdk
