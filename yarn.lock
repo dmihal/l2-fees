@@ -702,10 +702,10 @@
   resolved "https://registry.yarnpkg.com/@cosmjs/utils/-/utils-0.29.1.tgz#f953bb7c213f257db4766bf30474b741348c9189"
   integrity sha512-Nq0uJqzV7VoviJShtasUm41bDe7BArlkPaToEapGNPhR43pwKMowAMuZdJsKeTzEz9BtUAB/nCG+GO6/yCV1hQ==
 
-"@cryptostats/header.header@^0.0.15":
-  version "0.0.15"
-  resolved "https://node.bit.cloud/@cryptostats/header.header/-/@cryptostats-header.header-0.0.15.tgz#ec6b4539d84c04a068a49d22361bb5e588b5ee9b"
-  integrity sha1-7GtFOdhMBKBopJ0iNhu15Yi17ps=
+"@cryptostats/header.header@^0.0.18":
+  version "0.0.18"
+  resolved "https://node.bit.cloud/@cryptostats/header.header/-/@cryptostats-header.header-0.0.18.tgz#f7a12e004fe68778c41a2cf0e52e033e6e98a140"
+  integrity sha1-96EuAE/mh3jEGizw5S4DPm6YoUA=
   dependencies:
     core-js "^3.0.0"
     styled-components "5.3.6"
