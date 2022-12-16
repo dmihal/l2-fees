@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app';
 import PlausibleProvider from 'next-plausible';
 import { useRouter } from 'next/router';
 import ReactGA from 'react-ga4';
-import Header from 'components/Header';
+import { Header } from '@cryptostats/header.header';
 import Footer from 'components/Footer';
 
 ReactGA.initialize('G-TG6XPV9ZGL');
@@ -19,7 +19,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <div className="container">
       <PlausibleProvider domain="l2fees.info">
-        <Header />
+        <Header siteName="l2fees.info" />
 
         <Component {...pageProps} />
 
