@@ -11,7 +11,7 @@ path.resolve(process.cwd(), 'fonts', 'fonts.conf');
 path.resolve(process.cwd(), 'fonts', 'SofiaProRegular.ttf');
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const list = sdk.getList('l2-fees');
+  const list = sdk.getCollection('l2-fees');
   await list.fetchAdapters();
 
   const data = await list.executeQueriesWithMetadata(['feeTransferEth'], {
