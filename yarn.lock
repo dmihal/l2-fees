@@ -710,10 +710,10 @@
     core-js "^3.0.0"
     styled-components "5.3.6"
 
-"@cryptostats/header.sponsor_cta@^0.0.15":
-  version "0.0.15"
-  resolved "https://node.bit.cloud/@cryptostats/header.sponsor_cta/-/@cryptostats-header.sponsor_cta-0.0.15.tgz#f5dfb381412ad9f2ce836ba53a6c05a644a1779e"
-  integrity sha1-9d+zgUEq2fLOg2ulOmwFpkShd54=
+"@cryptostats/header.sponsor_cta@^0.0.17":
+  version "0.0.17"
+  resolved "https://node.bit.cloud/@cryptostats/header.sponsor_cta/-/@cryptostats-header.sponsor_cta-0.0.17.tgz#b0e320a34616dc4156ec80a92c78beda2ceb1e06"
+  integrity sha1-sOMgo0YW3EFW7ICpLHi+2izrHgY=
   dependencies:
     core-js "^3.0.0"
     styled-components "5.3.6"
