@@ -4,7 +4,7 @@ import PlausibleProvider from 'next-plausible';
 import { useRouter } from 'next/router';
 import ReactGA from 'react-ga4';
 import { Header } from '@cryptostats/header.header';
-import { Sponsor } from '@cryptostats/header.sponsor_cta';
+import { SponsorWrapper } from 'components/SponsorWrapper';
 import Footer from 'components/Footer';
 
 ReactGA.initialize('G-TG6XPV9ZGL');
@@ -24,7 +24,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
 
         <Component {...pageProps} />
 
-        <Sponsor />
+        <SponsorWrapper />
 
         <Footer />
       </PlausibleProvider>
