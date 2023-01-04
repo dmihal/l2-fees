@@ -56,7 +56,7 @@ const DetailsCard: React.FC<DetailsCardProps> = ({ protocol }) => {
         {protocol.metadata.l2BeatSlug && (
           <div>
             <Button
-              href={`https://l2beat.com/projects/${protocol.metadata.l2BeatSlug}/`}
+              href={`https://l2beat.com/scaling/projects/${protocol.metadata.l2BeatSlug}/`}
               Icon={L2BeatIcon}
             >
               More Details at L2Beat.com
