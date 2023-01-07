@@ -718,10 +718,10 @@
     core-js "^3.0.0"
     styled-components "5.3.6"
 
-"@cryptostats/sdk@^0.2.15":
-  version "0.2.15"
-  resolved "https://registry.yarnpkg.com/@cryptostats/sdk/-/sdk-0.2.15.tgz#52e4afb8a18f1641e28ce8e089b52a8258a93e38"
-  integrity sha512-qaL1DGdaQn/n1mGn2OqMKAtZvcrUzykc4I5GMJi+OMZj+oJ9d3mAEmiL/poY1cN2Ok5LNE+fX3SIeW5ITGGA3Q==
+"@cryptostats/sdk@^0.2.19":
+  version "0.2.19"
+  resolved "https://registry.yarnpkg.com/@cryptostats/sdk/-/sdk-0.2.19.tgz#da999d84a1f2213c01f1c504589722e0119f55ad"
+  integrity sha512-c9+78EbrANZtKwb3aVd/L9JbJs7Ir717VjF8rstvA7N6qVnpkK7FdOJPGbyXfE9Z/DPn5MNm42yQJQ4OWo61ug==
   dependencies:
     "@cosmjs/stargate" "^0.29.0"
     "@cosmjs/tendermint-rpc" "^0.29.0"
