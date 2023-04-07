@@ -135,7 +135,7 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   }
 
   const data = await collection.executeQueriesWithMetadata(
-    ['feeTransferEth', 'feeTransferERC20', 'feeSwap'],
+    ['feeTransferEth', 'feeTransferERC20', 'feeTransferToken', 'feeSwap'],
     { allowMissingQuery: true }
   );
 

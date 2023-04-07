@@ -9,6 +9,12 @@ import { usePlausible } from 'next-plausible';
 interface RowProps {
   protocol: any;
   query: string;
+  transferType: TokenType;
+}
+
+export enum TokenType {
+  ETH = 'ETH',
+  TOKEN = 'Tokens',
 }
 
 const toggle = (isOpen: boolean) => !isOpen;
@@ -25,7 +31,7 @@ const format = (num?: number) =>
         }))) ||
   '-';
 
-const Row: React.FC<RowProps> = ({ protocol, query }) => {
+const Row = ({ protocol, query, transferType }: RowProps) => {
   const plausible = usePlausible();
   const [open, setOpen] = useState(false);
 
@@ -47,6 +53,10 @@ const Row: React.FC<RowProps> = ({ protocol, query }) => {
   if (isNotRollup) {
     classes.push('not-rollup');
   }
+
+  const transferAmount = transferType === TokenType.ETH
+    ? protocol.results.feeTransferEth
+    : protocol.results.feeTransferToken || protocol.results.feeTransferERC20;
 
   return (
     <Fragment>
@@ -73,7 +83,7 @@ const Row: React.FC<RowProps> = ({ protocol, query }) => {
           />
           <Flags flags={flags} />
         </div>
-        <div className="amount">{format(protocol.results.feeTransferEth)}</div>
+        <div className="amount">{format(transferAmount)}</div>
         <div className="amount">{format(protocol.results.feeSwap)}</div>
         <div className="arrow">{open ? <ChevronUp /> : <ChevronDown />}</div>
       </div>

@@ -1,11 +1,12 @@
-import React from 'react';
-import Row from './Row';
+import React, { useState } from 'react';
+import Row, { TokenType } from './Row';
 
 interface ListProps {
   data: any[];
 }
 
 const List: React.FC<ListProps> = ({ data }) => {
+  const [tokenType, setTokenType] = useState(TokenType.ETH);
   const query = 'feeTransferEth';
   const sortedData = data
     .filter((protocol: any) => !!protocol.results[query])
@@ -15,12 +16,30 @@ const List: React.FC<ListProps> = ({ data }) => {
     <div className="list">
       <div className="header">
         <div className="name">Name</div>
-        <div className="amount">Send ETH</div>
+        <div className="amount">
+          Send {tokenType}
+          <div className="dropdown">
+            <ul>
+              <li
+                onClick={() => setTokenType(TokenType.ETH)}
+                className={tokenType === TokenType.ETH ? 'selected' : ''}
+              >
+                ETH
+              </li>
+              <li
+                onClick={() => setTokenType(TokenType.TOKEN)}
+                className={tokenType === TokenType.TOKEN ? 'selected' : ''}
+              >
+                Tokens
+              </li>
+            </ul>
+          </div>
+        </div>
         <div className="amount">Swap tokens</div>
       </div>
 
       {sortedData.map((protocol: any) => (
-        <Row protocol={protocol} key={protocol.id} query={query} />
+        <Row protocol={protocol} key={protocol.id} query={query} transferType={tokenType} />
       ))}
 
       <style jsx>{`
@@ -46,21 +65,6 @@ const List: React.FC<ListProps> = ({ data }) => {
           background: #eee;
         }
 
-        .item {
-          display: flex;
-          padding: 0 4px;
-          background-color: #fff;
-          font-size: 18px;
-          background-repeat: no-repeat;
-          background-position: 10px center;
-          background-size: 20px 20px;
-          padding-left: 10px;
-        }
-
-        .item.app {
-          background-color: #fad3f6;
-        }
-
         .item > div,
         .header > div {
           padding: 16px 32px;
@@ -73,6 +77,35 @@ const List: React.FC<ListProps> = ({ data }) => {
         .amount {
           min-width: 160px;
           text-align: right;
+          position: relative;
+        }
+
+        .dropdown {
+          display: none;
+          position: absolute;
+          background: #eee;
+          border: solid 1px darkGray;
+          left: 0;
+          right: 0;
+          top: 55px;
+        }
+
+        .dropdown ul {
+          margin: 0;
+          padding: 0;
+        }
+
+        .dropdown ul li {
+          padding: 6px;
+          list-style: none;
+        }
+
+        .dropdown ul li:hover {
+          background: #ddd;
+        }
+
+        .amount:hover .dropdown, .dropdown:hover {
+          display: block;
         }
 
         @media (max-width: 700px) {
@@ -93,12 +126,6 @@ const List: React.FC<ListProps> = ({ data }) => {
           }
           .g {
             display: none;
-          }
-
-          .item {
-            padding-left: 30px;
-            padding-right: 0;
-            background-position: 6px center;
           }
 
           .item > div,
