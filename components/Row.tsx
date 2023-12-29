@@ -54,9 +54,10 @@ const Row = ({ protocol, query, transferType }: RowProps) => {
     classes.push('not-rollup');
   }
 
-  const transferAmount = transferType === TokenType.ETH
-    ? protocol.results.feeTransferEth
-    : protocol.results.feeTransferToken || protocol.results.feeTransferERC20;
+  const transferAmount =
+    transferType === TokenType.ETH
+      ? protocol.results.feeTransferEth
+      : protocol.results.feeTransferToken || protocol.results.feeTransferERC20;
 
   return (
     <Fragment>

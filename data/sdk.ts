@@ -13,6 +13,12 @@ sdk
     query === 'oneDayFeesPaidUSD' ? params[0] : null
   );
 
+sdk
+  .getCollection('fees')
+  .setCacheKeyResolver((_id: string, query: string, params: string[]) =>
+    query === 'oneDayTotalFees' ? params[0] : null
+  );
+
 sdk.ethers.addProvider('arbitrum-one', 'https://arb1.arbitrum.io/rpc');
 sdk.ethers.addProvider('optimism', 'https://mainnet.optimism.io');
 

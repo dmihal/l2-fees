@@ -104,7 +104,8 @@ const List: React.FC<ListProps> = ({ data }) => {
           background: #ddd;
         }
 
-        .amount:hover .dropdown, .dropdown:hover {
+        .amount:hover .dropdown,
+        .dropdown:hover {
           display: block;
         }
 
