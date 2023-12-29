@@ -3,7 +3,6 @@ import { NextPage, GetStaticProps } from 'next';
 import sdk from 'data/sdk';
 import List from 'components/List';
 import SocialTags from 'components/SocialTags';
-import ToggleNavBar from 'components/ToggleNavBar';
 import ToggleBar from 'components/ToggleBar';
 import Link from 'next/link';
 
@@ -23,28 +22,11 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
 
       <h1 className="title">L2 Fees</h1>
 
-      <ToggleNavBar
-        options={[
-          { path: '/', label: 'L2 Transaction Fees' },
-          { path: '/l1-fees', label: 'Total L1 Security Costs' },
-        ]}
-      />
-
       <p className="description">
         Ethereum Layer-1 is expensive.
         <br />
         How much does it cost to use Layer-2?
       </p>
-
-      <div className="blog">
-        How can rollups reduce their fees?
-        <br />
-        Read our first blog-post &ldquo;
-        <Link href="/blog/rollup-calldata-compression">
-          <a>Crunching the Calldata</a>
-        </Link>
-        &rdquo;.
-      </div>
 
       <div className="toolbar">
         <ToggleBar
@@ -59,6 +41,16 @@ export const Home: NextPage<HomeProps> = ({ data }) => {
       </div>
 
       <List data={_data} />
+
+      <div className="blog">
+        How can rollups reduce their fees?
+        <br />
+        Read our first blog-post &ldquo;
+        <Link href="/blog/rollup-calldata-compression">
+          <a>Crunching the Calldata</a>
+        </Link>
+        &rdquo;.
+      </div>
 
       <div className="l2beat">
         Want to better understand Ethereum&apos;s layer-2 ecosystem?
