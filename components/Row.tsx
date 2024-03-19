@@ -21,13 +21,17 @@ const toggle = (isOpen: boolean) => !isOpen;
 
 const cardHeight = 600;
 
+const minimumFractionDigits = 4;
+const minimum = 1 / 10 ** minimumFractionDigits;
+
 const format = (num?: number) =>
   (num &&
-    (num < 0.01
-      ? '< $0.01'
+    (num < minimum
+      ? `< $${minimum}`
       : num?.toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
+          minimumFractionDigits,
         }))) ||
   '-';
 
